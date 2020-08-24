@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/scripts/enemy/doorRay.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 1.31637
+height = 0.625104
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.617113, 0.673997, 0.776717 )
+
+[node name="zebra" type="KinematicBody"]
+
+[node name="body" type="CollisionShape" parent="."]
+transform = Transform( 0.75, 0, 0, 0, 1, 0, 0, 0, 1, 0.00886869, 0.962935, -0.114592 )
+shape = SubResource( 1 )
+
+[node name="head" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00886869, 3.05413, -1.22242 )
+shape = SubResource( 2 )
+
+[node name="doorRay" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.30822, -1.8226 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.5 )
+script = ExtResource( 1 )

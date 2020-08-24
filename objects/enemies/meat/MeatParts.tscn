@@ -1,0 +1,100 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/materials/weapon/result/blood.tres" type="Material" id=1]
+[ext_resource path="res://assets/scripts/enemy/meatParts/MeatParts.gd" type="Script" id=2]
+[ext_resource path="res://objects/enemies/meat/meat1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/enemies/meat/meat2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/enemies/meat/meat3.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/materials/enemies/meats/bloodCloud2.tres" type="Material" id=6]
+[ext_resource path="res://assets/materials/enemies/meats/bloodCloud.tres" type="Material" id=7]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.467045 ), 0.0, 1.8, 0, 0, Vector2( 1, 0 ), -3.68715, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+width = 1024
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 2, 1, 1 )
+direction = Vector3( 0, 1, 0 )
+spread = 90.0
+gravity = Vector3( 0, -9, 0 )
+initial_velocity = 15.0
+initial_velocity_random = 0.5
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+scale_curve = SubResource( 2 )
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 1 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0.780682 ), 0.0, 0.465072, 0, 0, Vector2( 1, 0.0329546 ), -3.25676, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+width = 1024
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 2, 1 )
+direction = Vector3( 0.5, 0, 0.5 )
+spread = 90.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.5
+scale = 4.0
+scale_curve = SubResource( 8 )
+
+[sub_resource type="QuadMesh" id=5]
+material = ExtResource( 7 )
+
+[sub_resource type="QuadMesh" id=6]
+material = ExtResource( 6 )
+
+[node name="MeatParts" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10679, 0 )
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+randomness = 0.5
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 4 )
+
+[node name="Particles2" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24722, -0.397919 )
+emitting = false
+amount = 5
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource( 9 )
+draw_passes = 2
+draw_pass_1 = SubResource( 5 )
+draw_pass_2 = SubResource( 6 )
+
+[node name="meat-pony" type="Spatial" parent="."]
+
+[node name="meat3" parent="meat-pony" instance=ExtResource( 4 )]
+transform = Transform( 0.7859, 0, -0.618354, 0, 1, 0, 0.618354, 0, 0.7859, 0.0586079, 2.45045, 0 )
+
+[node name="meat1" parent="meat-pony" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 3.19189, -1.11222 )
+
+[node name="meat2" parent="meat-pony" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276868, 1.04354, -0.902165 )
+
+[node name="meat4" parent="meat-pony" instance=ExtResource( 5 )]
+transform = Transform( 0.995585, -0.0938651, 0, 0.0938651, 0.995585, 0, 0, 0, 1, 0.344551, 1.04354, -0.902165 )
+
+[node name="meat5" parent="meat-pony" instance=ExtResource( 5 )]
+transform = Transform( 0.995585, -0.0938651, 0, 0.0904407, 0.959264, 0.267642, -0.0251222, -0.26646, 0.963518, 0.344551, 1.04354, 0.475 )
+
+[node name="meat6" parent="meat-pony" instance=ExtResource( 5 )]
+transform = Transform( 0.992462, 0.108999, 0.0560205, -0.11995, 0.957663, 0.261714, -0.0251222, -0.26646, 0.963518, -0.368904, 1.04354, 0.475 )

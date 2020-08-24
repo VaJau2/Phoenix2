@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/scripts/enemy/seekArea.gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 31.3321, 13.8533, 39.2231 )
+
+[node name="seekArea" type="Area"]
+script = ExtResource( 1 )
+
+[node name="shape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41689, -19.003 )
+shape = SubResource( 1 )
+
+[node name="playerRay" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.04292, -2.4947 )
+cast_to = Vector3( 0, 0, -1 )
+[connection signal="body_entered" from="." to="." method="_on_seekArea_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_seekArea_body_exited"]

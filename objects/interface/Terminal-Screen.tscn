@@ -1,0 +1,208 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/materials/fonts/terminal_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/textures/interface/terminal_interface.png" type="Texture" id=2]
+[ext_resource path="res://assets/scripts/interface/Terminal-Info.gd" type="Script" id=3]
+
+[node name="Terminal-Screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background2" type="ColorRect" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.243137 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="interface" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_right = 400.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="ColorRect" parent="interface"]
+show_behind_parent = true
+anchor_left = 0.114
+anchor_top = 0.053
+anchor_right = 0.878
+anchor_bottom = 0.867
+margin_left = 0.241997
+margin_top = -0.150002
+margin_right = -0.06604
+margin_bottom = 0.149963
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-header" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.14
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.073
+margin_top = 0.199997
+margin_right = 0.399963
+margin_bottom = 29.2
+theme = ExtResource( 1 )
+text = "---СТОЙЛ-ТЕК (ТМ)   ТЕРМИНАЛ ИНФОРМАЦИИ---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-border" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.14
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.073
+margin_top = 21.2
+margin_right = 0.399963
+margin_bottom = 38.2
+theme = ExtResource( 1 )
+text = "----------------------------------------------------------------------------------------------"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-scores" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 23.2
+margin_top = 46.2
+margin_right = -404.6
+margin_bottom = -386.2
+theme = ExtResource( 1 )
+text = "> Количество очков:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scores" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 170.2
+margin_top = 46.2
+margin_right = -141.6
+margin_bottom = -386.2
+theme = ExtResource( 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-equipment" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 23.2
+margin_top = 76.2
+margin_right = -312.6
+margin_bottom = -356.2
+theme = ExtResource( 1 )
+text = "> Зарезервированное снаряжение:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="eqipment" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 269.2
+margin_top = 76.2
+margin_right = -8.60004
+margin_bottom = -308.2
+theme = ExtResource( 1 )
+text = "нет"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-border2" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 3.2
+margin_top = 176.2
+margin_right = 0.399963
+margin_bottom = -268.2
+theme = ExtResource( 1 )
+text = "----------------------------------------------------------------------------------------------"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-info" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 23.2
+margin_top = 196.2
+margin_right = -285.6
+margin_bottom = -236.2
+theme = ExtResource( 1 )
+text = "> Получайте очки, проходя испытания;"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-info2" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.136
+anchor_top = 0.073
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 23.2
+margin_top = 221.2
+margin_right = -59.6
+margin_bottom = -203.2
+theme = ExtResource( 1 )
+text = "> После прохождения обучения, полученные очки будут прибавлены к 
+конечным очкам уровня"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label-info3" type="Label" parent="interface"]
+visible = false
+anchor_left = 0.138
+anchor_top = 0.842
+anchor_right = 0.852
+anchor_bottom = 0.842
+margin_left = 21.6
+margin_top = -105.2
+margin_right = -59.6
+margin_bottom = -88.2
+theme = ExtResource( 1 )
+text = "> Чтобы выйти, нажмите Esc"
+__meta__ = {
+"_edit_use_anchors_": false
+}
