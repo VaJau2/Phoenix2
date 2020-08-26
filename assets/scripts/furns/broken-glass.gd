@@ -10,10 +10,10 @@ export var lamp = false
 export var item_prefab: Resource
 var item_height = 0.4
 
-export var sound = {
-	"brake1": AudioStream,
-	"brake2": AudioStream,
-}
+export var sound = {}
+#sound has:
+#	brake1
+#	brake2
 
 func dropItem():
 	var item = item_prefab.instance()

@@ -6,7 +6,7 @@ onready var light = get_node("../lightsCheck")
 onready var first = get_node("first")
 onready var third = get_node("third")
 
-onready var hornParticles = get_node("../player_body/Armature/Skeleton/BoneAttachment 2/horn/Particles")
+onready var hornParticles = get_node("../player_body/Armature/Skeleton/BoneAttachment/horn/Particles")
 
 var material
 var play_onetime = false

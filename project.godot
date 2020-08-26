@@ -119,7 +119,6 @@ legsHit={
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
 environment/default_environment="res://assets/materials/environments/default_env.tres"

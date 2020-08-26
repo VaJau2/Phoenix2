@@ -60,7 +60,7 @@ const SHAKE_TIME = 0.1
 var shake_timer = 0
 
 var tempRay
-onready var horn_particles = get_node("player_body/Armature/Skeleton/BoneAttachment 2/horn/Particles")
+onready var horn_particles = get_node("player_body/Armature/Skeleton/BoneAttachment/horn/Particles")
 var teleport_mark = preload("res://objects/magic/TeleportMark.tscn")
 var teleport_effect = preload("res://objects/magic/TeleportEffect.tscn")
 var teleport_sound = preload("res://assets/audio/magic/teleporting.wav")
