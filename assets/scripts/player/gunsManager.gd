@@ -309,6 +309,7 @@ func _ready():
 	
 	rayHead.add_exception(parent)
 	rayShotgun.add_exception(parent)
+	rayThird.add_exception(parent)
 	camera_script = camera.get_node("Camera")
 	#первый раз почему-то не срабатывает
 	_shakeCameraUp()

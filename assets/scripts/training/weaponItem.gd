@@ -30,3 +30,5 @@ func getWeapon(finish = true):
 		G.player.weapons._activeGunOnModel(false)
 		if G.player.weapons._isPistol():
 			G.player.weapons.weaponModels[weapon_name + "_off"].visible = false
+		else:
+			G.player.weapons.temp_weapon = "pistol"
