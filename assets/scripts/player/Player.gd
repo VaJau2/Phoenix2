@@ -123,7 +123,7 @@ func loadRace():
 		stats.Health = 100
 		stats.HealthMax = 100
 		if G.race == 1:
-			get_node("player_body/Armature/Skeleton/BoneAttachment 2/horn").visible = true
+			get_node("player_body/Armature/Skeleton/BoneAttachment/horn").visible = true
 		elif G.race == 2:
 			get_node("player_body/Armature/Skeleton/WingL").visible = true
 			get_node("player_body/Armature/Skeleton/WingR").visible = true
@@ -164,11 +164,11 @@ func _physics_process(delta):
 		vel = Vector3(0,0,0)
 
 
-func _setValueZero(value, step, new_value=0):
+func _setValueZero(value, step, new_value=0, delta = 0.1):
 	if(value > step + new_value):
-		value -= step
+		value -= step * delta * 20
 	elif(value < -step + new_value):
-		value += step
+		value += step * delta * 20
 	else:
 		value = new_value
 	return value
@@ -317,7 +317,7 @@ func process_input(delta):
 	if(goSide):
 		sideAngle = clamp(sideAngle,-2, 2)
 	else:
-		sideAngle = _setValueZero(sideAngle,0.2)
+		sideAngle = _setValueZero(sideAngle, 0.2, 0, delta)
 	
 	camera.rotation_degrees.z = sideAngle
 	
@@ -412,8 +412,8 @@ func process_input(delta):
 					speedY = rotation_helper.rotation_degrees.x / 5
 				else:
 					speedY = 0
-	body_collider.scale.y = _setValueZero(body_collider.scale.y, 0.1, body_collider_size)
-	body_collider_2.scale.y = _setValueZero(body_collider_2.scale.y, 0.1, body_collider_size)
+	body_collider.scale.y = _setValueZero(body_collider.scale.y, 0.1, body_collider_size, delta)
+	body_collider_2.scale.y = _setValueZero(body_collider_2.scale.y, 0.1, body_collider_size, delta)
 	# ----------------------------------
 
 

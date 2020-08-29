@@ -42,7 +42,7 @@ func playerMakingShy():
 	return false
 
 
-func _updateHeadRotation():
+func _updateHeadRotation(delta):
 	head_blend.y = head.rotation_degrees.x / 60 + walk_offset
 	if _is_walking() || jumping_cooldown > 0:
 		if player_script.flying_fast:
@@ -76,7 +76,7 @@ func _updateHeadRotation():
 			rot_x = (body_rot + 159.0) / 90.0
 		else:
 			rot_x = body_rot / 90.0
-	head_blend.x = player_script._setValueZero(head_blend.x, 0.12, rot_x)
+	head_blend.x = player_script._setValueZero(head_blend.x, 0.12, rot_x, delta)
 	animTree.set("parameters/BlendSpace2D/blend_position", head_blend)
 
 
@@ -89,7 +89,7 @@ func _ready():
 func _process(delta):
 	#--animating body--
 	if player_script.stats.Health > 0:
-		_updateHeadRotation()
+		_updateHeadRotation(delta)
 		
 		if body_rot > 130 || body_rot < -105:
 			if smile_cooldown > 0:
@@ -190,7 +190,7 @@ func _process(delta):
 			rotation_degrees.y = 0
 		elif player_script.vel.length() > 0 && !player_script.roped:
 			var rot_y = rotation_degrees.y
-			rotation_degrees.y = player_script._setValueZero(rot_y, 8, body_rot)
+			rotation_degrees.y = player_script._setValueZero(rot_y, 16, body_rot, delta)
 		else:
 			rotation_degrees.y = body_rot
 			if body_rot < -180:
