@@ -5,6 +5,7 @@ export var item_height = 2.0
 export var item_prefab: Resource
 export var key_name = ""
 export var pick_key_text = ""
+export var pick_key_text_eng = ""
 
 var item_dropped = false
 
@@ -22,6 +23,7 @@ func dropItem():
 		if key_name.length() > 0:
 			item.key_name = key_name
 			item.key_pick_text = pick_key_text
+			item.key_pick_text_eng = pick_key_text_eng
 		
 		get_node("/root/Main/items").add_child(item)
 		item.global_transform.origin = global_transform.origin

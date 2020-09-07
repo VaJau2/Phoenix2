@@ -3,6 +3,23 @@ extends Control
 onready var manager = get_node('/root/Main/props/buildings/equipment')
 signal label_changed
 
+var menu_text_eng = [
+	"---STABLE-TEC (ТМ)   INFORMATION TERMINAL---",
+	"> Scores count:",
+	"> Reserved equipment:",
+	"> Get scores by passing tests;",
+	"> After completing the training, the points received will be added to\nfinal level scores",
+	"> To exit press Esc"
+]
+
+func _change_interface_language():
+	$"interface/label-header".text = menu_text_eng[0]
+	$"interface/label-scores".text = menu_text_eng[1]
+	$"interface/label-equipment".text = menu_text_eng[2]
+	$"interface/label-info".text = menu_text_eng[3]
+	$"interface/label-info2".text = menu_text_eng[4]
+	$"interface/label-info3".text = menu_text_eng[5]
+
 
 func _change_label(label):
 	label.percent_visible = 0
@@ -17,15 +34,24 @@ func loadEquipment():
 	if manager.reservedEqup.size() > 0:
 		equipLabel.text = ""
 		for equip in manager.reservedEqup:
-			equipLabel.text += equip.equipNameTerminal + " - " + str(equip.cost) + "\n"
+			if G.english:
+				equipLabel.text += equip.equpNameEng + " - " + str(equip.cost) + "\n"
+			else:
+				equipLabel.text += equip.equipNameTerminal + " - " + str(equip.cost) + "\n"
 	else:
-		equipLabel.text = "нет"
+		if G.english:
+			equipLabel.text = "none"
+		else:
+			equipLabel.text = "нет"
 	equipLabel.visible = true
 
 
 func setTerminalOn():
 	G.setPause(self, true)
 	visible = true
+	
+	if G.english:
+		_change_interface_language()
 	
 	_change_label($"interface/label-header")
 	$"interface/label-header".visible = true

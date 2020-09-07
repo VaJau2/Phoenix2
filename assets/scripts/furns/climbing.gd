@@ -94,7 +94,10 @@ func _checkKey():
 	var actions = InputMap.get_action_list("jump")
 	var key = OS.get_scancode_string(actions[0].get_scancode())
 	
-	jumpHint.get_node("label").text = key + " - перепрыгнуть"
+	if G.english:
+		jumpHint.get_node("label").text = key + " - jump over"
+	else:
+		jumpHint.get_node("label").text = key + " - перепрыгнуть"
 
 
 func _ready():

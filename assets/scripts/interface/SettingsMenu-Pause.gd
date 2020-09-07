@@ -1,18 +1,18 @@
 extends "MenuBase.gd"
 
-export var header_text: String
+export var header_text: Array
 
 var mouse_slider
 var distance_slider
 var shadows_button
 var reflections_button
 
-var shadows_variants = [
-	"Минимальное",
-	"Среднее",
-	"Выше среднего",
-	"Максимальное"
-]
+var shadows_variants = {
+	0:["Минимальное", "Minimum"],
+	1:["Среднее", "Average"],
+	2:["Выше среднего", "Above average"],
+	3:["Максимальное", "Maximum"]
+}
 var shadows_settings = [
 	1024,
 	2048,
@@ -22,12 +22,12 @@ var shadows_settings = [
 var shadows_temp = 3
 
 
-var reflections_variants = [
-	"Отключены",
-	"Низкое",
-	"Среднее",
-	"Максимальное"
-]
+var reflections_variants = {
+	0:["Отключены", "Disabled"],
+	1:["Низкое", "Low"],
+	2:["Среднее", "Avegare"],
+	3:["Максимальное", "Maximum"]
+}
 var reflections_settings = [
 	0,
 	45,
@@ -49,6 +49,85 @@ var temp_action = ""
 var controlActions = ["ui_up", "ui_down", "ui_left", "ui_right", \
 					  "jump", "ui_shift", "use", "crouch", "dash",\
 					  "getGun", "legsHit", "changeView"]
+
+var menu_text = {
+	0: ["[Настройки]","[Settings]"],
+	1: ["               [Назад]","               [Back]"],
+	2: ["Чувствительность мыши:","Mouse sensitivity"],
+	3: ["Дальность прорисовки:", "Render distance:"],
+	4: ["Качество теней:", "Shadows quality:"],
+	5: ["Качество отражений:", "Reflections quality:"],
+	6: ["Полноэкранный режим:", "Fullscreen"],
+	7: ["Громкость звуков:", "Sound volume:"],
+	8: ["Громкость музыки:", "Music volume:"],
+	9: ["[Настройки управления]", "[Controls settings]"],
+	10:["Выключен", "Disabled"],
+	11:["Включен", "Enabled"],
+	12:["               [Сбросить]","               [Default]"],
+	13:["Вперед:", "Forward"],
+	14:["Назад:", "Back"],
+	15:["Налево:", "Left"],
+	16:["Направо:", "Right"],
+	17:["Прыжок/Телепортация/Полет:", "Jump/Teleport/Fly Up"],
+	18:["Бег/Магический щит/Снижение:", "Run/Magical Sheild/Fly Down"],
+	19:["Использовать:", "Use:"],
+	20:["Присесть:", "Sit"],
+	21:["Подкат:", "Dodge"],
+	22:["Достать оружие: ", "Get gun"],
+	23:["Ближний удар:", "Close hit"],
+	24:["Сменить камеру:", "Change view"]
+}
+
+
+func _getMenuText(textI):
+	if G.english:
+		return menu_text[textI][1]
+	else:
+		return menu_text[textI][0]
+
+
+func _change_interface_language():
+	if G.english:
+		$page_label.text = header_text[1]
+		$Controls/page_label.text = header_text[1] + "/Controls_settings"
+		
+		reflections_button.text = reflections_variants[reflections_temp][1]
+		shadows_button.text = shadows_variants[shadows_temp][1]
+		
+		if fullscreen_temp:
+			fullscreen_button.text = _getMenuText(11)
+		else:
+			fullscreen_button.text = _getMenuText(10)
+	else:
+		$page_label.text = header_text[0]
+		$Controls/page_label.text = header_text[0] + "/Настройки_управления"
+	
+	$Label.text = _getMenuText(0)
+	$back.text = _getMenuText(1)
+	$mouse_label.text = _getMenuText(2)
+	$distance_label.text = _getMenuText(3)
+	$shadows_label.text = _getMenuText(4)
+	$reflections_label.text = _getMenuText(5)
+	$fullscreen.text = _getMenuText(6)
+	$sound_label.text = _getMenuText(7)
+	$music_label.text = _getMenuText(8)
+	$controls.text = _getMenuText(9)
+	
+	$Controls/back.text = _getMenuText(1)
+	$Controls/default.text = _getMenuText(12)
+	$Controls/keyForwardLabel.text = _getMenuText(13)
+	$Controls/keyBackLabel.text = _getMenuText(14)
+	$Controls/keyLeftLabel.text = _getMenuText(15)
+	$Controls/keyRightLabel.text = _getMenuText(16)
+	$Controls/keyJumpLabel.text = _getMenuText(17)
+	$Controls/keyRunLabel.text = _getMenuText(18)
+	$Controls/keyUseLabel.text = _getMenuText(19)
+	$Controls/keyCrouchLabel.text = _getMenuText(20)
+	$Controls/keyDashLabel.text = _getMenuText(21)
+	$Controls/keyGetGunLabel.text = _getMenuText(22)
+	$Controls/keyLegsLabel.text = _getMenuText(23)
+	$Controls/keyCameraLabel.text = _getMenuText(24)
+
 
 func _on_back_pressed():
 	$audi.play()
@@ -81,7 +160,10 @@ func _on_shadows_button_pressed():
 		shadows_temp += 1
 	else:
 		shadows_temp = 0
-	shadows_button.text = shadows_variants[shadows_temp]
+	if G.english:
+		shadows_button.text = shadows_variants[shadows_temp][1]
+	else:
+		shadows_button.text = shadows_variants[shadows_temp][0]
 	changeShadows(shadows_temp)
 
 
@@ -91,16 +173,18 @@ func _on_reflections_button_pressed():
 		reflections_temp += 1
 	else:
 		reflections_temp = 0
-	reflections_button.text = reflections_variants[reflections_temp]
+	if G.english:
+		reflections_button.text = reflections_variants[reflections_temp][1]
+	else:
+		reflections_button.text = reflections_variants[reflections_temp][0]
 	G.reflections = reflections_settings[reflections_temp]
-
 
 
 func _update_fullscreen_button():
 	if fullscreen_temp:
-		fullscreen_button.text = "Включен"
+		fullscreen_button.text = _getMenuText(11)
 	else:
-		fullscreen_button.text = "Выключен"
+		fullscreen_button.text = _getMenuText(10)
 
 
 func _on_fullscreen_button_pressed():
@@ -199,9 +283,9 @@ func _getControlEdit(action):
 	print("what is " + action + "?")
 
 
-func _on_controls_mouse_entered(editName, text):
+func _on_controls_mouse_entered(editName, text, eng_text = ""):
 	if temp_edit == null:
-		._on_mouse_entered(text)
+		._on_mouse_entered(text, eng_text)
 		var editBack = get_node("Controls/"+ editName)
 		_setEditOn(editBack, true)
 
@@ -245,11 +329,6 @@ func _input(event):
 				temp_edit = null
 
 
-func _ready():
-	$page_label.text = header_text
-	$Controls/page_label.text = header_text + "/Настройки_управления"
-
-
 #--------Вызывается в global.gd и [скрипт загрузки]---------------------------------------
 
 func loadInterface():
@@ -273,21 +352,29 @@ func loadSettingsFromGame():
 	
 	distance_slider.value = G.distance
 	var shadows = get_tree().get_root().get_shadow_atlas_size()
+	
+	var lang = 0
+	if G.english:
+		lang = 1
+		
 	match shadows:
 		512:
-			shadows_button.text = shadows_variants[0]
+			shadows_button.text = shadows_variants[0][lang]
 		1024:
-			shadows_button.text = shadows_variants[1]
+			shadows_button.text = shadows_variants[1][lang]
 			shadows_temp = 1
 		2048:
-			shadows_button.text = shadows_variants[2]
+			shadows_button.text = shadows_variants[2][lang]
 			shadows_temp = 2
 		4096:
-			shadows_button.text = shadows_variants[3]
+			shadows_button.text = shadows_variants[3][lang]
 			shadows_temp = 3
 	
 	reflections_temp = reflections_settings.find(G.reflections)
-	reflections_button.text = reflections_variants[reflections_temp]
+	if G.english:
+		reflections_button.text = reflections_variants[reflections_temp][1]
+	else:
+		reflections_button.text = reflections_variants[reflections_temp][0]
 	
 	sound_slider.value = AudioServer.get_bus_volume_db(0)
 	music_slider.value = AudioServer.get_bus_volume_db(1)
@@ -320,11 +407,17 @@ func loadSettingsFromFile():
 		distance_slider.value = distance
 		
 		shadows_temp = config.get_value("screen", "shadows_quality")
-		shadows_button.text = shadows_variants[shadows_temp]
+		if G.english:
+			shadows_button.text = shadows_variants[shadows_temp][1]
+		else:
+			shadows_button.text = shadows_variants[shadows_temp][0]
 		changeShadows(shadows_temp)
 		
 		reflections_temp = config.get_value("screen", "reflections_quality")
-		reflections_button.text = reflections_variants[reflections_temp]
+		if G.english:
+			reflections_button.text = reflections_variants[reflections_temp][1]
+		else:
+			reflections_button.text = reflections_variants[reflections_temp][0]
 		G.reflections = reflections_settings[reflections_temp]
 		
 		var sound_volume = config.get_value("audio","sound_volume")

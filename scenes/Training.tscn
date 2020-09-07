@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=2]
+[gd_scene load_steps=205 format=2]
 
 [ext_resource path="res://objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/materials/props/locations/sand.tres" type="Material" id=2]
@@ -995,6 +995,38 @@ func _process(delta):
 	lookAtPlayer()
 "
 
+[sub_resource type="GDScript" id=96]
+script/source = "extends Node
+
+var eng_textures = [
+	preload(\"res://assets/textures/props/furniture/teach-notes/main-note-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/equipment-note-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/magic-note-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/stealth-note-eng.png\"),
+	
+	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/armor-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/bandage-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/headrope-eng.png\"),
+	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/socks-eng.png\"),
+	
+	preload(\"res://assets/textures/flutty-table-eng.png\")
+]
+
+func _ready():
+	if G.english:
+		$\"../props/buildings/main/note\".texture = eng_textures[0]
+		$\"../props/buildings/equipment/note\".texture = eng_textures[1]
+		$\"../props/buildings/magic/note\".texture = eng_textures[2]
+		$\"../props/buildings/stealth/note\".texture = eng_textures[3]
+		
+		$\"../props/buildings/equipment/maneken-armor/note/text\".texture = eng_textures[4]
+		$\"../props/buildings/equipment/maneken-bangade/note/text\".texture = eng_textures[5]
+		$\"../props/buildings/equipment/maneken-headrope/note/text\".texture = eng_textures[6]
+		$\"../props/buildings/equipment/maneken-socks/note/text\".texture = eng_textures[7]
+		
+		$\"../props/buildings/laboratory/note2/text\".texture = eng_textures[8]
+"
+
 [node name="Main" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
@@ -1470,6 +1502,7 @@ script = ExtResource( 100 )
 changeSound = ExtResource( 105 )
 cost = 350
 equpName = "бронежилет"
+equpNameEng = "armor"
 equipNameTerminal = "бронежилет"
 
 [node name="Body" type="MeshInstance" parent="props/buildings/equipment/maneken-armor"]
@@ -1525,6 +1558,7 @@ script = ExtResource( 100 )
 changeSound = ExtResource( 103 )
 cost = 150
 equpName = "стелс-носки"
+equpNameEng = "stealth-socks"
 equipNameTerminal = "стелс-носки"
 
 [node name="Body" type="MeshInstance" parent="props/buildings/equipment/maneken-socks"]
@@ -1575,6 +1609,7 @@ script = ExtResource( 100 )
 changeSound = ExtResource( 11 )
 cost = 50
 equpName = "повязку"
+equpNameEng = "bandage"
 equipNameTerminal = "повязка"
 
 [node name="bandage" type="MeshInstance" parent="props/buildings/equipment/maneken-bangade"]
@@ -1630,6 +1665,7 @@ script = ExtResource( 100 )
 changeSound = ExtResource( 104 )
 cost = 150
 equpName = "бандану"
+equpNameEng = "bandana"
 equipNameTerminal = "бандана"
 
 [node name="headrope" type="MeshInstance" parent="props/buildings/equipment/maneken-headrope"]
@@ -2146,6 +2182,7 @@ script = ExtResource( 91 )
 Health = 50
 phrase = ExtResource( 90 )
 phraseText = [ "Приветствую солдат", "Если вы хотите прослушать инструкции о ведении боя, кивните один раз" ]
+phraseTextEng = [ "Greetings, soldier!", "If you wish to listen my combat instructions, nod one time." ]
 textTimers = [ 1.5, 3.9 ]
 animsCount = 3
 
@@ -2241,6 +2278,7 @@ shape = SubResource( 82 )
 transform = Transform( -0.95, 0, -3.69944e-07, 0, 0.95, 0, 3.69944e-07, 0, -0.95, 3.67501, 0, 9.793 )
 Health = 50
 phraseText = [ "Приветствую на летном поле, пегас!", "Сегодня мы проверим твои летные способности", "Если хочешь прослушать инструкции, кивни один раз" ]
+phraseTextEng = [ "Welcome to the flying field, pegasus! ", "Today we are gonna check your flying skills! ", "If you wish to listen my instructions, nod one time." ]
 textTimers = [ 2.9, 3.1, 3.3 ]
 
 [node name="passArea" type="Area" parent="props/buildings/flying"]
@@ -2571,6 +2609,7 @@ timer = 5
 [node name="MrHandy-Rarity" parent="props/buildings/magic" instance=ExtResource( 97 )]
 transform = Transform( -0.9, 0, -3.50473e-07, 0, 0.9, 0, 3.50473e-07, 0, -0.9, 1.65113, -1.53866, 3.78292 )
 Health = 50
+phraseTextEng = [ "Good day to you.", "Here you can check matching your magical abilities to the requirements of the upcoming mission.", "Also you can listen to my instructions,", "to do this, you need to nod one time." ]
 textTimers = [ 1.3, 4.5, 2.5, 2.1 ]
 
 [node name="passArea" type="Area" parent="props/buildings/magic"]
@@ -2972,6 +3011,9 @@ visible = false
 [node name="DealthMenu" parent="canvas" instance=ExtResource( 13 )]
 visible = false
 path = "res://scenes/Training.tscn"
+
+[node name="notes_translate" type="Node" parent="."]
+script = SubResource( 96 )
 [connection signal="body_entered" from="props/buildings/main/passArea" to="props/buildings/main/passArea" method="_on_passArea_body_entered"]
 [connection signal="body_exited" from="props/buildings/main/passArea" to="props/buildings/main/passArea" method="_on_passArea_body_exited"]
 [connection signal="body_entered" from="props/buildings/equipment/climbing/climbIn" to="props/buildings/equipment/climbing" method="_on_climbIn_body_entered"]

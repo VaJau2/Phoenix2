@@ -12,7 +12,10 @@ func _process(delta):
 func _on_Item_body_entered(body):
 	if body.name == "Player":
 		if messages:
-			messages.ShowMessage("Подобран ключ от браслета", 1.5)
+			if G.english:
+				messages.ShowMessage("Picked up the key to the collar", 1.5)
+			else:
+				messages.ShowMessage("Подобран ключ от браслета", 1.5)
 		body.collar.set_visible(false)
 		body.collar.slider.set_visible(false)
 		

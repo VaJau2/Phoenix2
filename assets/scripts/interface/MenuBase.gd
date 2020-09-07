@@ -23,8 +23,12 @@ func _change_down_label():
 		yield(get_tree().create_timer(0.01),"timeout")
 
 
-func _on_mouse_entered(message):
-	down_label.text = message
+func _on_mouse_entered(message, english_message):
+	if G.english:
+		down_label.text = english_message
+	else:
+		down_label.text = message
+	
 	if down_added:
 		down_label.text += "_"
 	_change_down_label()

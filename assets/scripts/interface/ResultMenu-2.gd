@@ -18,6 +18,14 @@ var slaveVariants = [
 	["Рабы были спасены", 200]
 ]
 
+var slaveVariantsEng = [
+	"The slaves were killed",
+	"One of the slaves was killed",
+	"The slaves were not saved",
+	"One of the slaves was saved",
+	"The slaves were saved"
+]
+
 const TIME_SCORES = [
 	[4, 30, 500], #минуты, секунды, очки
 	[6, 5, 300],
@@ -37,6 +45,18 @@ var score_reasons = {
 var hours = 0
 var minutes = 0
 var seconds = 0
+
+func _change_interface_language():
+	$page_label.text = "/Phoenix2/Result_menu"
+	$Label.text = "[Thank you for playing с:]"
+	$label1.text = "Scores count:"
+	$label2.text = "Passage time:"
+	$label3.text = "Kills:"
+	$label4.text = "Stealth kills:"
+	$label5.text = "Bloody kills:"
+	$label7.text = "Clones survived:"
+	$label6.text = "Race:"
+	$exit.text = "               [To main menu]"
 
 
 func save_stats(stats):
@@ -61,6 +81,9 @@ func load_stats():
 
 
 func showRecords():
+	if G.english:
+		_change_interface_language()
+	
 	var scores = G.scores
 	for reason in score_reasons.keys():
 		scores += score_reasons[reason] * SCORES[reason]
@@ -92,7 +115,10 @@ func showRecords():
 		2:
 			$race_label.text = "Пегас"
 	
-	$Slaves_label.text = slaveVariants[score_reasons.Slaves][0]
+	if G.english:
+		$Slaves_label.text = slaveVariantsEng[score_reasons.Slaves]
+	else:
+		$Slaves_label.text = slaveVariants[score_reasons.Slaves][0]
 	
 	visible = true
 	_update_down_label()

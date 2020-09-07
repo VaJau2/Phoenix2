@@ -29,10 +29,13 @@ onready var eyePartDown = get_node("../../../canvas/eyesParts/eyeDown")
 var eyes_closed = false
 
 
-func showHint(text):
+func showHint(text, text_eng=""):
 	var actions = InputMap.get_action_list("use")
 	var key = OS.get_scancode_string(actions[0].get_scancode())
-	label.text = key + text
+	if G.english:
+		label.text = key + text_eng
+	else:
+		label.text = key + text
 	labelBack.visible = true
 	onetime = true
 
@@ -88,44 +91,47 @@ func _physics_process(delta):
 			temp_object = result
 			if temp_object.collider is furn_base:
 				if temp_object.collider.open:
-					showHint(" - закрыть")
+					showHint(" - закрыть", " - close")
 				else:
-					showHint(" - открыть")
+					showHint(" - открыть", " - open")
 			
 			elif "have_coat" in temp_object.collider:
 				if parent.have_coat && !temp_object.collider.have_coat:
-					showHint(" - снять пальто")
+					showHint(" - снять пальто", " - take coat off")
 				if !parent.have_coat && temp_object.collider.have_coat:
-					showHint(" - надеть пальто")
+					showHint(" - надеть пальто", " - put coat on")
 			
 			elif "maneken" in temp_object.collider.name:
 				if temp_object.collider.haveEquip:
-					showHint(" - надеть " + temp_object.collider.equpName + "\n (" + str(temp_object.collider.cost) + " очков)")
+					showHint(" - надеть " + temp_object.collider.equpName + "\n (" + str(temp_object.collider.cost) + " очков)", \
+					" - put " + temp_object.collider.equpNameEng + " on\n (" + str(temp_object.collider.cost) + " scores)")
 				else:
-					showHint(" - снять " + temp_object.collider.equpName)
+					showHint(" - снять " + temp_object.collider.equpName, " - take " + temp_object.collider.equpNameEng + " off")
 			
 			elif "weapon_num" in temp_object.collider:
 				if temp_object.collider.visible:
-					showHint(" - взять оружие")
+					showHint(" - взять оружие", " - take gun")
 				elif G.player.weapons.temp_weapon_num == temp_object.collider.weapon_num:
-					showHint(" - положить оружие")
+					showHint(" - положить оружие", " - put gun")
 			
 			elif "terminal" in temp_object.collider.name:
-				showHint(" - активировать терминал")
+				showHint(" - активировать терминал", " - activate terminal")
 			
 			elif temp_object.collider.name == "map_to_next_loc":
-				showHint(" - закончить обучение\nи отправиться на базу")
+				showHint(" - закончить обучение\nи отправиться на базу", \
+				" - finish training\nand go to base")
 		
 			elif "Fluttershy" in temp_object.collider.name && !flutty_onetime:
-				showHint(" - получить дополнительные\nочки за просто так")
+				showHint(" - получить дополнительные\nочки за просто так", \
+				" - get extra scores\nfor nothing")
 			
 			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
 				if temp_object.collider.collared:
-					showHint(" - попробовать снять\nбраслет")
+					showHint(" - попробовать снять\nбраслет", " - try to take\ncollar off")
 				elif temp_object.collider.waiting:
-					showHint(" - позвать за собой")
+					showHint(" - позвать за собой", " - say to follow")
 				else:
-					showHint(" - сказать ждать здесь")
+					showHint(" - сказать ждать здесь", " - say to wait here")
 		else:
 			temp_object = null
 
@@ -137,14 +143,20 @@ func _input(event):
 			if temp_object.collider is furn_base:
 				var keys = G.player.stats.my_keys
 				closed_timer = temp_object.collider.clickFurn(keys)
-				closed_text = "Закрыто"
+				if G.english:
+					closed_text = "Closed"
+				else:
+					closed_text = "Закрыто"
 			
 			elif "have_coat" in temp_object.collider:
 				temp_object.collider.changeCoat()
 			
 			elif "maneken" in temp_object.collider.name:
 				closed_timer = temp_object.collider.changeEquip()
-				closed_text = "Не хватает очков"
+				if G.english:
+					closed_text = "Not enough scores"
+				else:
+					closed_text = "Не хватает очков"
 			
 			elif "weapon_num" in temp_object.collider:
 				if temp_object.collider.visible || G.player.weapons.temp_weapon_num == temp_object.collider.weapon_num:
@@ -166,14 +178,30 @@ func _input(event):
 				flutty_onetime = true
 				if G.race == 0:
 					G.scores += 250
-					messages.ShowMessage("250 очков получено", 1)
+					if G.english:
+						messages.ShowMessage("Got 250 scores", 1)
+					else:
+						messages.ShowMessage("250 очков получено", 1)
 				else:
-					messages.ShowMessage("только для земнопони :P", 1)
+					if G.english:
+						messages.ShowMessage("only for earthponies :P", 1)
+					else:
+						messages.ShowMessage("только для земнопони :P", 1)
+						
 					yield(get_tree().create_timer(2),"timeout")
-					messages.ShowMessage("ладно, раз ты умудрился сюда попасть,\nто заслуживаешь эти очки", 2)
+					
+					if G.english:
+						messages.ShowMessage("okay, since you're here\nyou deserve this scores", 2)
+					else:
+						messages.ShowMessage("ладно, раз ты умудрился сюда попасть,\nто заслуживаешь эти очки", 2)
+					
 					yield(get_tree().create_timer(2.5),"timeout")
+					
 					G.scores += 250
-					messages.ShowMessage("250 очков получено", 1)
+					if G.english:
+						messages.ShowMessage("Got 250 scores", 1)
+					else:
+						messages.ShowMessage("250 очков получено", 1)
 			
 			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
 				if temp_object.collider.collared: #--освобождаем
@@ -181,7 +209,10 @@ func _input(event):
 						temp_object.collider.changeCollar(false)
 					else:
 						closed_timer = 1
-						closed_text = "Нет подходящего ключа"
+						if G.english:
+							closed_text = "There is no suitable key"
+						else:
+							closed_text = "Нет подходящего ключа"
 						
 				elif temp_object.collider.waiting: #--следуй за мной
 					temp_object.collider.waiting = false

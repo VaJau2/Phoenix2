@@ -1219,7 +1219,8 @@ graph_offset = Vector2( -281, -12 )
 [node name="MrHandy-Pinkie" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 phrase = ExtResource( 6 )
-phraseText = [ "Приветствую, агент", "Если вы хотите прослушать инструкции о скрытности, кивните один раз" ]
+phraseText = [ "Приветствую, агент!", "Если вы хотите прослушать инструкции о скрытности, кивните один раз" ]
+phraseTextEng = [ "Greetings, agent!", "If you wish to hear my stealth instructions, nod one time." ]
 textTimers = [ 1.7, 3.3 ]
 
 [node name="Armature" type="Spatial" parent="." index="3"]

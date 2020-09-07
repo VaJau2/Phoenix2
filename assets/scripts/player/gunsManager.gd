@@ -395,9 +395,15 @@ func _process(delta):
 					var key = OS.get_scancode_string(actions[0].get_scancode())
 					
 					if gunOn:
-						label.text = key + " - сложить оружие"
+						if G.english:
+							label.text = key + " - put gun in"
+						else:
+							label.text = key + " - сложить оружие"
 					else:
-						label.text = key + " - взять оружие"
+						if G.english:
+							label.text = key + " - take gun"
+						else:
+							label.text = key + " - взять оружие"
 					askGet.visible = true
 					onetimeVisible = true
 					if Input.is_action_just_pressed("getGun"):

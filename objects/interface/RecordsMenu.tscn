@@ -130,7 +130,7 @@ margin_top = -70.0
 margin_right = 31.0
 margin_bottom = -48.0
 theme = ExtResource( 1 )
-text = "Количество очков"
+text = "Количество очков:"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -372,7 +372,7 @@ margin_top = -95.0
 margin_right = 31.0
 margin_bottom = -73.0
 theme = ExtResource( 1 )
-text = "Раса"
+text = "Раса:"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -406,7 +406,7 @@ margin_top = -70.0
 margin_right = 31.0
 margin_bottom = -48.0
 theme = ExtResource( 1 )
-text = "Количество очков"
+text = "Количество очков:"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -657,6 +657,6 @@ __meta__ = {
 
 [node name="audi" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-[connection signal="mouse_entered" from="back" to="." method="_on_mouse_entered" binds= [ "Назад" ]]
+[connection signal="mouse_entered" from="back" to="." method="_on_mouse_entered" binds= [ "Назад", "Back" ]]
 [connection signal="mouse_exited" from="back" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

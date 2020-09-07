@@ -17,8 +17,12 @@ func _ready():
 	phrases = {
 		"greetings": preload("res://assets/audio/phrases/instructions/combat/combat-greetings.ogg"),
 		"greetings_text": [
-			"Приветствую солдат",
+			"Приветствую солдат!",
 			"Если вы хотите прослушать инструкции о ведении боя, кивните один раз"
+		],
+		"greetings_text_eng": [
+			"Greetings, soldier!",
+			"If you wish to listen my combat instructions, nod one time."
 		],
 		"greetings_timers": [1.5, 3.9],
 		
@@ -39,6 +43,22 @@ func _ready():
 			"Чтобы устранить снайпера",
 			"нужно стараться не попадать в поле его обзора и подойти к нему как можно ближе",
 			"Обычно хватает одного выстрела"
+		],
+		"instructions_text_eng": [
+			"So",
+			"For successful combat with enemy,",
+			"try to inflict as much damage as possible and to avoid retaliation.",
+			"In your mission with high probability you will meet opponents like zebras.",
+			"Zebras are melee masters.",
+			"Don't try to engage in close combat with any of them, you will probably be eliminated.",
+			"Try to keep distance from them and shoot as accurate as possible,",
+			"and you will win.",
+			"Also judging by our intelligence, enemy's base is guarded by snipers.",
+			"Zebra snipers have wide and long view,",
+			"but directed only in one direction because of the slowness of their rifles.",
+			"To eliminate a sniper,",
+			"you need to keep away from their view and get as close as possible.",
+			"Usually one shot is enough."
 		],
 		"instructions_timers": [
 			0.6,
@@ -62,6 +82,10 @@ func _ready():
 			"Если вы хотите попрактиковаться в стрельбе,",
 			"берите эту винтовку и стреляйте по мишеням"
 		],
+		"try_text_eng": [
+			"If you want to practice in shooting,",
+			"take this rifle and hit the targets."
+		],
 		"try_timers": [
 			2.5,
 			2.4
@@ -69,10 +93,12 @@ func _ready():
 		
 		"succeed": preload("res://assets/audio/phrases/instructions/combat/combat-succeed.ogg"),
 		"succeed_text": ["Отлично, вы поразили все мишени!"],
+		"succeed_text_eng": ["Great, you hitted all the targets!"],
 		"succeed_timers": [3],
 		
 		"die": preload("res://assets/audio/phrases/instructions/combat/combat-revolt.ogg"),
 		"die_text": ["Не стреляй в своих, солдат!"],
+		"die_text_eng": ["Don't shoot to allies, soldier!"],
 		"die_timers": [2.7]
 	}
 
@@ -100,7 +126,10 @@ func startTraining():
 	
 	is_training = true
 	if got_scores > 0:
-		messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
+		if G.english:
+			messages.ShowMessage("reset " + str(got_scores) + " scores ", 1.5)
+		else:
+			messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
 		G.scores -= got_scores
 		got_scores = 0
 		eqipManager.removeReservedEqip()
@@ -113,7 +142,10 @@ func startTraining():
 func hitTarget(scores: int):
 	got_scores += scores
 	G.scores += scores
-	messages.ShowMessage(str(scores) + " очков получено", 1)
+	if G.english:
+		messages.ShowMessage("got " + str(got_scores) + " scores ", 1.5)
+	else:
+		messages.ShowMessage(str(scores) + " очков получено", 1)
 	
 	if targets_count > 1:
 		targets_count -= 1

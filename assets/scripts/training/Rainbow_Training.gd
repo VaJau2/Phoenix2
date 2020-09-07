@@ -27,13 +27,17 @@ func _ready():
 			"Сегодня мы проверим твои летные способности",
 			"Если хочешь прослушать инструкции, кивни один раз."
 		],
+		"greetings_text_eng": [
+			"Welcome to the flying field, pegasus!",
+			"Today we are gonna check your flying skills!",
+			"If you wish to listen my instructions, nod one time."
+		],
 		"greetings_timers": [2.9, 3.1, 3.3],
 		
 		
 		"not_pegasus": preload("res://assets/audio/phrases/instructions/flight/flying-non-pegasus.ogg"),
-		"not_pegasus_text": [
-			"Только для пегасов, извини"
-		],
+		"not_pegasus_text": ["Только для пегасов, извини"],
+		"not_pegasus_text_eng": ["Only for pegasuses, sorry."],
 		"not_pegasus_timers": [2.8],
 		
 		
@@ -50,6 +54,17 @@ func _ready():
 			"но в сражении необходим баланс между скоростью и маневренностью",
 			"Никогда не забывай это.",
 		],
+		"instructions_text_eng": [
+			"Attention, pegasus!",
+			"For a successful flight during the combat remember",
+			"don't crash!",
+			"This rule sounds easy,",
+			"but in practice almost half of all pegasuses losing their combats because of their carelessness during the flight.",
+			"As long as your flight is directed forward, the faster you fly, the less your maneuverability.",
+			"If it was a race, nothing more would be required of you,",
+			"but the battle requires a balance between speed and maneuverability.",
+			"Never forget about this."
+		],
 		"instructions_timers": [
 			2.0,
 			3.0,
@@ -63,19 +78,20 @@ func _ready():
 		],
 		
 		"try": preload("res://assets/audio/phrases/instructions/flight/flight-try.ogg"),
-		"try_text": [
-			"Если хочешь пролететь полосу препятствий, подойти к стартовой линии",
-		],
+		"try_text": ["Если хочешь пролететь полосу препятствий, подойти к стартовой линии.",],
+		"try_text_eng": ["If you wish to fly the obstacle course, go to the start line.",],
 		"try_timers": [
 			2.9,
 		],
 		
 		"fail": preload("res://assets/audio/phrases/instructions/flight/flight-fail.ogg"),
 		"fail_text": ["Неудача, попробуй еще раз."],
+		"fail_text_eng": ["Fail, try again."],
 		"fail_timers": [1.8],
 		
 		"succeed": preload("res://assets/audio/phrases/instructions/flight/flight-succeed.ogg"),
 		"succeed_text": ["Отлично, ты почти такой же потрясный летун, как пони, с которой скопирован мой голос!"],
+		"succeed_text_eng": ["Great, you are as awesome flyer as pony, which my voice was copied from!"],
 		"succeed_timers": [4.8]
 	}
 
@@ -84,7 +100,10 @@ func startTraining():
 	is_training = true
 	startRing.start()
 	if got_scores > 0:
-		messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
+		if G.english:
+			messages.ShowMessage("Reset:" + str(got_scores) + " scores", 1.5)
+		else:
+			messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
 		G.scores -= got_scores
 		got_scores = 0
 		eqipManager.removeReservedEqip()
@@ -95,7 +114,10 @@ func startTraining():
 func finishTraining():
 	is_training = false
 	got_scores = int(increase * PASS_SCORES)
-	messages.ShowMessage(str(got_scores) + " очков получено", 1)
+	if G.english:
+		messages.ShowMessage("Got:" + str(got_scores) + " scores", 1.5)
+	else:
+		messages.ShowMessage(str(got_scores) + " очков получено", 1)
 	G.scores += got_scores
 	G.player.audi_hitted.stream = ringFly2
 	G.player.audi_hitted.play()

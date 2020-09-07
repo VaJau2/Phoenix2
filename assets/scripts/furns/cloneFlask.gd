@@ -7,6 +7,8 @@ var flaskOpen = preload("res://assets/audio/futniture/flaskOpen.wav")
 var phrase = preload("res://assets/audio/phrases/speech1-edited.wav")
 var phraseText = ["Благодарим за использование нашей экспериментальной системы воскрешения, названной \"Феникс2!\"",
 				   "Надеюсь, вы больше не умрете!"]
+var phraseTextEng = ["Thank you for using our experimental resurrection system called \"Phoenix2\"!",
+					"I hope you won't die again!"]
 var textTimers = [4.2, 1.8]
 var textI = 0
 
@@ -144,7 +146,10 @@ func talkToPlayer():
 		if G.paused:
 			yield(get_tree(), "idle_frame")
 		else:
-			subs.text = phraseText[textI]
+			if G.english:
+				subs.text = phraseTextEng[textI]
+			else:
+				subs.text = phraseText[textI]
 			if tempTimers[textI] > 0:
 				tempTimers[textI] -= temp_delta
 				yield(get_tree(), "idle_frame")

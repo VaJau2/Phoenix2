@@ -47,6 +47,7 @@ func dropKey():
 	item.global_transform.origin = global_transform.origin
 	item.key_name = "prison_key"
 	item.key_pick_text = "Подобран ключ от решетки"
+	item.key_pick_text_eng = "Picked up the key to prison door"
 	item.global_transform.origin.y += 1
 
 

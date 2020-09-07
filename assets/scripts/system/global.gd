@@ -1,5 +1,7 @@
 extends Node
 
+var english = false
+
 var loader
 var wait_frames
 var current_scene
@@ -46,6 +48,7 @@ func goto_scene(path, loading = false): # game requests to switch to this scene
 			main_menu.updating_down_label = false
 		
 		get_node("LoadingMenu").visible = true
+		get_node("LoadingMenu")._change_interface_language()
 		
 		yield(get_tree(),"idle_frame")
 		
@@ -125,7 +128,10 @@ func _process(delta):
 		loader = null
 		set_new_scene(resource)
 	elif err != OK: # error during loading
-		get_node("LoadingMenu/Label").text = "Произошла какая-то ошибка во время загрузки. Попробуй еще раз - может, загрузит"
+		if G.english:
+			get_node("LoadingMenu/Label").text = "There is some error in loading. Try again - maybe it'll work"
+		else:
+			get_node("LoadingMenu/Label").text = "Произошла какая-то ошибка во время загрузки. Попробуй еще раз - может, загрузит"
 		loader = null
 	
 	yield(get_tree(),"idle_frame")

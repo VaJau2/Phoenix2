@@ -26,6 +26,79 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="chooseLanguage" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chooseLabel" type="Label" parent="chooseLanguage"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = -90.0
+margin_right = 201.0
+margin_bottom = -68.0
+theme = ExtResource( 1 )
+text = "Выберите язык"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="russian" type="Button" parent="chooseLanguage"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -470.0
+margin_top = -40.0
+margin_right = -68.0
+margin_bottom = -15.0
+theme = ExtResource( 1 )
+toggle_mode = true
+pressed = true
+text = "[Русский]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="english" type="Button" parent="chooseLanguage"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 38.0
+margin_top = -40.0
+margin_right = 440.0
+margin_bottom = -15.0
+theme = ExtResource( 1 )
+toggle_mode = true
+text = "[English]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="continue" type="Button" parent="chooseLanguage"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = 50.0
+margin_right = 201.0
+margin_bottom = 75.0
+theme = ExtResource( 1 )
+text = "[Продолжить]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="page_label" type="Label" parent="."]
 modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
 margin_left = 40.0
@@ -462,40 +535,49 @@ visible = false
 
 [node name="SettingsMenu" parent="." instance=ExtResource( 2 )]
 visible = false
-header_text = "/Phoenix2/Главное_меню/Меню_Настроек"
+header_text = [ "/Phoenix2/Главное_меню/Настройки", "/Phoenix2/Main_menu/Settings" ]
 
 [node name="audi" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-[connection signal="mouse_entered" from="start" to="." method="_on_mouse_entered" binds= [ "Начать игру" ]]
+[connection signal="mouse_entered" from="chooseLanguage/russian" to="." method="_on_mouse_entered" binds= [ "Выбрать русский язык", "Выбрать русский язык" ]]
+[connection signal="mouse_exited" from="chooseLanguage/russian" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="chooseLanguage/russian" to="." method="_on_language_pressed" binds= [ false ]]
+[connection signal="mouse_entered" from="chooseLanguage/english" to="." method="_on_mouse_entered" binds= [ "Choose english language", "Choose english language" ]]
+[connection signal="mouse_exited" from="chooseLanguage/english" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="chooseLanguage/english" to="." method="_on_language_pressed" binds= [ true ]]
+[connection signal="mouse_entered" from="chooseLanguage/continue" to="." method="_on_mouse_entered" binds= [ "Продолжить", "Continue" ]]
+[connection signal="mouse_exited" from="chooseLanguage/continue" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="chooseLanguage/continue" to="." method="_on_chooseLang_continue_pressed"]
+[connection signal="mouse_entered" from="start" to="." method="_on_mouse_entered" binds= [ "Начать игру", "Start game" ]]
 [connection signal="mouse_exited" from="start" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
-[connection signal="mouse_entered" from="load" to="." method="_on_mouse_entered" binds= [ "Загрузить уровень" ]]
+[connection signal="mouse_entered" from="load" to="." method="_on_mouse_entered" binds= [ "Загрузить уровень", "Load last level" ]]
 [connection signal="mouse_exited" from="load" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="load" to="." method="_on_load_pressed"]
-[connection signal="mouse_entered" from="settings" to="." method="_on_mouse_entered" binds= [ "Настройки" ]]
+[connection signal="mouse_entered" from="settings" to="." method="_on_mouse_entered" binds= [ "Настройки", "Settings" ]]
 [connection signal="mouse_exited" from="settings" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
-[connection signal="mouse_entered" from="records" to="." method="_on_mouse_entered" binds= [ "Рекорды" ]]
+[connection signal="mouse_entered" from="records" to="." method="_on_mouse_entered" binds= [ "Рекорды", "Records" ]]
 [connection signal="mouse_exited" from="records" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="records" to="." method="_on_records_pressed"]
-[connection signal="mouse_entered" from="about" to="." method="_on_mouse_entered" binds= [ "Об игре" ]]
+[connection signal="mouse_entered" from="about" to="." method="_on_mouse_entered" binds= [ "Об игре", "About game" ]]
 [connection signal="mouse_exited" from="about" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="about" to="." method="_on_about_pressed"]
-[connection signal="mouse_entered" from="exit" to="." method="_on_mouse_entered" binds= [ "Выйти" ]]
+[connection signal="mouse_entered" from="exit" to="." method="_on_mouse_entered" binds= [ "Выйти", "Exit" ]]
 [connection signal="mouse_exited" from="exit" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
-[connection signal="mouse_entered" from="About/back" to="." method="_on_mouse_entered" binds= [ "Назад" ]]
+[connection signal="mouse_entered" from="About/back" to="." method="_on_mouse_entered" binds= [ "Назад", "Back" ]]
 [connection signal="mouse_exited" from="About/back" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="About/back" to="." method="_on_back_pressed"]
-[connection signal="mouse_entered" from="ChangeRace/back" to="." method="_on_mouse_entered" binds= [ "Назад" ]]
+[connection signal="mouse_entered" from="ChangeRace/back" to="." method="_on_mouse_entered" binds= [ "Назад", "Back" ]]
 [connection signal="mouse_exited" from="ChangeRace/back" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="ChangeRace/back" to="." method="_on_back_pressed"]
-[connection signal="mouse_entered" from="ChangeRace/earthpony/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Земной пони" ]]
+[connection signal="mouse_entered" from="ChangeRace/earthpony/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Земной пони", "Choose race: Earthpony" ]]
 [connection signal="mouse_exited" from="ChangeRace/earthpony/choose" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="ChangeRace/earthpony/choose" to="." method="_on_choose_pressed" binds= [ "earthpony" ]]
-[connection signal="mouse_entered" from="ChangeRace/unicorn/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Единорог" ]]
+[connection signal="mouse_entered" from="ChangeRace/unicorn/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Единорог", "Choose race: Unicorn" ]]
 [connection signal="mouse_exited" from="ChangeRace/unicorn/choose" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="ChangeRace/unicorn/choose" to="." method="_on_choose_pressed" binds= [ "unicorn" ]]
-[connection signal="mouse_entered" from="ChangeRace/pegasus/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Пегас" ]]
+[connection signal="mouse_entered" from="ChangeRace/pegasus/choose" to="." method="_on_mouse_entered" binds= [ "Выбрать расу: Пегас", "Choose race: Pegasus" ]]
 [connection signal="mouse_exited" from="ChangeRace/pegasus/choose" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="ChangeRace/pegasus/choose" to="." method="_on_choose_pressed" binds= [ "pegasus" ]]

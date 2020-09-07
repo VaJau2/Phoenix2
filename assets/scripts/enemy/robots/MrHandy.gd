@@ -10,6 +10,7 @@ var break2_sound = preload("res://assets/audio/guns/result/mrHandy_break-2.wav")
 
 export var phrase: AudioStream
 export var phraseText = []
+export var phraseTextEng = []
 export var textTimers = []
 var textI = 0
 
@@ -54,7 +55,12 @@ func talkToPlayer():
 				if randf() > 0.65:
 					talkI = randi() % 2 + 1
 					playback.travel("Talk" + str(talkI))
-				subs.text = phraseText[textI]
+				
+				if G.english:
+					subs.text = phraseTextEng[textI]
+				else:
+					subs.text = phraseText[textI]
+					
 				if tempTimers[textI] > 0:
 					tempTimers[textI] -= temp_delta
 					yield(get_tree(), "idle_frame")
@@ -85,7 +91,10 @@ func TakeDamage(damage: int, shapeID = 0):
 			var temp_timers = textTimers
 			
 			phrase = my_script.phrases.die
-			phraseText = my_script.phrases.die_text
+			if G.english:
+				phraseText = my_script.phrases.die_text_eng
+			else:
+				phraseText = my_script.phrases.die_text
 			textTimers = my_script.phrases.die_timers
 			textI = 0
 			

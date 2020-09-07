@@ -4,6 +4,7 @@ export var changeSound: AudioStream
 export var cost: int
 
 export var equpName = ""
+export var equpNameEng = ""
 export var equipNameTerminal = ""
 var haveEquip = true
 

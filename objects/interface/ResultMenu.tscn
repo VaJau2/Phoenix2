@@ -28,7 +28,7 @@ margin_top = 20.0
 margin_right = 215.0
 margin_bottom = 42.0
 theme = ExtResource( 2 )
-text = "/Phoenix2/Меню_Результатов"
+text = "/Phoenix2/Меню_результатов"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,7 +103,7 @@ margin_top = -140.0
 margin_right = -21.0
 margin_bottom = -118.0
 theme = ExtResource( 2 )
-text = "Количество очков"
+text = "Количество очков:"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -359,9 +359,9 @@ __meta__ = {
 
 [node name="audi" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-[connection signal="mouse_entered" from="continue" to="." method="_on_mouse_entered" binds= [ "Продолжить" ]]
+[connection signal="mouse_entered" from="continue" to="." method="_on_mouse_entered" binds= [ "Продолжить", "Continue" ]]
 [connection signal="mouse_exited" from="continue" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]
-[connection signal="mouse_entered" from="exit" to="." method="_on_mouse_entered" binds= [ "В главное меню" ]]
+[connection signal="mouse_entered" from="exit" to="." method="_on_mouse_entered" binds= [ "В главное меню", "To main menu" ]]
 [connection signal="mouse_exited" from="exit" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

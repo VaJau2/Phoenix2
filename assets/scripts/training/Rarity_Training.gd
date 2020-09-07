@@ -30,18 +30,23 @@ func _ready():
 	phrases = {
 		"greetings": preload("res://assets/audio/phrases/instructions/magic/magic-greetings.ogg"),
 		"greetings_text": [
-			"Доброго дня вам",
-			"Здесь вы можете проверить соответствие своих магических способностей требованиям предстоящей миссии",
+			"Доброго дня вам.",
+			"Здесь вы можете проверить соответствие своих магических способностей требованиям предстоящей миссии.",
 			"Также вы можете прослушать мои инструкции,",
 			"для этого вам нужно кивнуть один раз."
+		],
+		"greetings_text_eng": [
+			"Good day to you.",
+			"Here you can check matching your magical abilities to the requirements of the upcoming mission.",
+			"Also you can listen to my instructions,",
+			"to do this you need to nod one time."
 		],
 		"greetings_timers": [1.3, 4.5, 2.5, 2.1],
 		
 		
 		"not_unicorn": preload("res://assets/audio/phrases/instructions/magic/magic-non-unicorns.ogg"),
-		"not_unicorn_text": [
-			"Прошу прощения, эти инструкции предназначены только для единорогов"
-		],
+		"not_unicorn_text": ["Прошу прощения, эти инструкции предназначены только для единорогов"],
+		"not_unicorn_text_eng": ["My apologies, this instructions are only for unicorns."],
 		"not_unicorn_timers": [3.5],
 		
 		
@@ -56,6 +61,17 @@ func _ready():
 			"Приемлимыми в данном случае является заклинания телепортации и магического щита",
 			"Однако, даже они могут привлечь внимание.",
 			"Постарайтесь использовать их как можно реже.",
+		],
+		"instructions_text_eng": [
+			"Usually it's not a problem for unicorns to use magic, as it is our natural ability.",
+			"Even during the fight it's not hard to focus and make some combat spell, which you were trained to do before.",
+			"However, your mission takes place during the night,",
+			"and important necessity is invisibility.",
+			"Using telekinesis is highly inappropriate, inasmuch telekinetic cloud strongly attracts attention.",
+			"That's why you need to use weapons in earth pony style.",
+			"In this case, teleportation and magic shield spells are acceptable.",
+			"However, even this spells may attract attention.",
+			"Try to use them as seldom as possible."
 		],
 		"instructions_timers": [
 			4.6,
@@ -74,6 +90,11 @@ func _ready():
 			"Для проверки способностей создания магического щита, подойдите в обозначенную область слева и дождитесь сигнала",
 			"Для проверки способностей телепортации, подойдите в область справа,",
 			"дождитесь сигнала и телепортируйтесь в обозначенные места."
+		],
+		"try_text_eng": [
+			"To check your abilities of creating magic shield, go to the designated area on the left and wait for the signal.",
+			"To check your abilities of teleportation, go to the area on the right,",
+			"wait for the signal and teleport on marked areas."
 		],
 		"try_timers": [
 			6.5,
@@ -127,7 +148,10 @@ func startTrainingTeleport():
 	G.player.audi_hitted.stream = failSound
 	G.player.audi_hitted.play()
 	if got_scores_teleport > 0:
-		messages.ShowMessage(str(got_scores_teleport) + " очков сброшено", 1.5)
+		if G.english:
+			messages.ShowMessage("Reset:" + str(got_scores_teleport) + " scores", 1.5)
+		else:
+			messages.ShowMessage(str(got_scores_teleport) + " очков сброшено", 1.5)
 		G.scores -= got_scores_teleport
 		got_scores_teleport = 0
 		eqipManager.removeReservedEqip()
@@ -138,7 +162,10 @@ func finishTraining():
 	is_training = false
 	got_scores_teleport = int(increase * PASS_SCORES)
 	G.scores += got_scores_teleport
-	messages.ShowMessage(str(got_scores_teleport) + " очков получено", 1)
+	if G.english:
+		messages.ShowMessage("Got:" + str(got_scores_teleport) + " scores", 1.5)
+	else:
+		messages.ShowMessage(str(got_scores_teleport) + " очков получено", 1)
 	G.player.audi_hitted.stream = ringFly2
 	G.player.audi_hitted.play()
 
@@ -152,7 +179,10 @@ func loseTraining():
 
 func startTrainingShield():
 	if got_scores_shield > 0:
-		messages.ShowMessage(str(got_scores_shield) + " очков сброшено", 1.5)
+		if G.english:
+			messages.ShowMessage("Reset:" + str(got_scores_shield) + " scores", 1.5)
+		else:
+			messages.ShowMessage(str(got_scores_shield) + " очков сброшено", 1.5)
 		G.scores -= got_scores_shield
 		got_scores_shield = 0
 		eqipManager.removeReservedEqip()
@@ -178,7 +208,10 @@ func startTrainingShield():
 				G.player.stats.mana -= GUN_DAMAGE
 				got_scores_shield += GUN_DAMAGE - 1
 				G.scores += GUN_DAMAGE
-				messages.ShowMessage(str(GUN_DAMAGE) + " очков получено", 1)
+				if G.english:
+					messages.ShowMessage("Got:" + str(GUN_DAMAGE) + " scores", 1.5)
+				else:
+					messages.ShowMessage(str(GUN_DAMAGE) + " очков получено", 1)
 				
 				G.player.audi_hitted.stream = ringFly1
 				G.player.audi_hitted.play()

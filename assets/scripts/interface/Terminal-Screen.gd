@@ -1,6 +1,5 @@
 extends Control
 
-
 var message_button_prefab = preload("res://objects/interface/message-button.tscn")
 var owner_name: String
 var messages: Dictionary
@@ -26,6 +25,11 @@ onready var menus = [
 ]
 signal label_changed
 
+func _change_interface_language():
+	$"interface/label-header".text = "---STABLE-TEC (ТМ)  PERSONAL TERMINAL ---"
+	$"interface/message/back".text = "               [Back]"
+	$"interface/main_menu/label-text2".text = "Messages:"
+
 
 func _change_label(label):
 	label.percent_visible = 0
@@ -36,10 +40,16 @@ func _change_label(label):
 
 
 func setTerminalOn(terminal):
-	owner_name = terminal.owner_name
-	messages = terminal.messages
-	
-	menus[0]["label-text"].text = "Добро пожаловать, " + owner_name
+	if G.english:
+		owner_name = terminal.owner_nameEng
+		messages = terminal.messagesEng
+		
+		menus[0]["label-text"].text = "Welcome, " + owner_name
+	else:
+		owner_name = terminal.owner_name
+		messages = terminal.messages
+		
+		menus[0]["label-text"].text = "Добро пожаловать, " + owner_name
 	
 	for message_name in messages:
 		var new_button = message_button_prefab.instance()
@@ -120,6 +130,10 @@ func setTerminalOff():
 	for child in menus[0].container.get_children():
 		child.queue_free()
 
+
+func _ready():
+	if G.english:
+		_change_interface_language()
 
 func _process(delta):
 	if visible:

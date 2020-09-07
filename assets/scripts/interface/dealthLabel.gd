@@ -22,7 +22,34 @@ var phrases = [
 	"Привет, я экран смерти, приятно познакомиться  с:",
 ]
 
+var phrases_eng = [
+	"Sorry, bad luck :c",
+	"You tried",
+	":c",
+	"Lose",
+	"Oh, it must have hurt",
+	"You will do it next time",
+	"Lets try again, I believe in you",
+	"You can do it",
+	"War, dealth and ponies",
+	"The last hit was fatal, it was over",
+	"Poor little pony :c",
+	"If you see this text, you probably were killed",
+	"Such cruel dealth for poor little pony",
+	"Quite suddenly, but quite naturally",
+	"Ah, now it's all over again :c",
+	"Death is inevitable. Besides this one, you can reboot here",
+	"Hi, I'm dealth screen, nice to meet you c:",
+	"I had to add a difficulty level setting",
+	"T_T"
+]
+
 func _ready():
 	randomize()
-	var phraseI = randi() % phrases.size()
-	text = phrases[phraseI]
+	
+	if G.english:
+		var phraseI = randi() % phrases_eng.size()
+		text = phrases_eng[phraseI]
+	else:
+		var phraseI = randi() % phrases.size()
+		text = phrases[phraseI]

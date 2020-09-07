@@ -13,11 +13,17 @@ var attackEnemies = []
 func _checkEmpty():
 	if attackEnemies.size() == 0:
 		if seekEnemies.size() == 0:
-			label.text = "[Вас не видят]"
+			if G.english:
+				label.text = "[Safe]"
+			else:
+				label.text = "[Вас не видят]"
 			label.modulate = Color.white
 			stage = 0
 		else:
-			label.text = "[Внимание]"
+			if G.english:
+				label.text = "[Attention]"
+			else:
+				label.text = "[Внимание]"
 			label.modulate = Color.orange
 			stage = 1
 	
@@ -37,7 +43,10 @@ func addSeekEnemy(enemy):
 	if !enemy in seekEnemies:
 		seekEnemies.append(enemy)
 		if attackEnemies.size() == 0:
-			label.text = "[Внимание]"
+			if G.english:
+				label.text = "[Attention]"
+			else:
+				label.text = "[Внимание]"
 			label.modulate = Color.orange
 			stage = 1
 
@@ -47,7 +56,10 @@ func removeSeekEnemy(enemy):
 	if enemy in seekEnemies:
 		seekEnemies.erase(enemy)
 		if seekEnemies.size() == 0 && attackEnemies.size() == 0:
-			label.text = "[Вас не видят]"
+			if G.english:
+				label.text = "[Safe]"
+			else:
+				label.text = "[Вас не видят]"
 			label.modulate = Color.white
 			stage = 0
 
@@ -56,7 +68,10 @@ func addAttackEnemy(enemy):
 	_checkEmpty()
 	if !enemy in attackEnemies:
 		attackEnemies.append(enemy)
-		label.text = "[Опасность]"
+		if G.english:
+			label.text = "[Danger]"
+		else:
+			label.text = "[Опасность]"
 		label.modulate = Color.red
 		stage = 1
 
@@ -66,6 +81,9 @@ func removeAttackEnemy(enemy):
 	if enemy in attackEnemies:
 		attackEnemies.erase(enemy)
 		if seekEnemies.size() == 0 && attackEnemies.size() == 0:
-			label.text = "[Вас не видят]"
+			if G.english:
+				label.text = "[Safe]"
+			else:
+				label.text = "[Вас не видят]"
 			label.modulate = Color.white
 			stage = 0

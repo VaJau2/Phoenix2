@@ -31,7 +31,10 @@ func removeReservedEqip(equip = null):
 			var removingEqip = reservedEqup[reservedEqup.size() - 1]
 			removingEqip.changeEquip()
 			reservedEqup.erase(removingEqip)
-			messages.ShowMessage("На " + removingEqip.equpName + " больше не хватает очков", 1.5)
+			if G.english:
+				messages.ShowMessage("Not enough scores for " + removingEqip.equpNameEng, 1.5)
+			else:
+				messages.ShowMessage("На " + removingEqip.equpName + " больше не хватает очков", 1.5)
 			sum_cost = calculateSumCost()
 			yield(get_tree(),"idle_frame")
 

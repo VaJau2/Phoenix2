@@ -25,6 +25,7 @@ func _resetTimers():
 func _changePhrase(phrase_name, talk=true):
 	mrHandy.phrase = phrases[phrase_name]
 	mrHandy.phraseText = phrases[phrase_name + "_text"]
+	mrHandy.phraseTextEng = phrases[phrase_name + "_text_eng"]
 	mrHandy.textTimers = phrases[phrase_name + "_timers"]
 	mrHandy.textI = 0
 	if talk:

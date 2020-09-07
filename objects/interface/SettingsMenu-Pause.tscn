@@ -11,7 +11,6 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-header_text = "/Phoenix2/Меню_Паузы/Меню_Настроек"
 
 [node name="background" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -529,7 +528,7 @@ margin_top = -109.516
 margin_right = -71.5361
 margin_bottom = -87.5164
 theme = ExtResource( 1 )
-text = "Вперед:   "
+text = "Вперед:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -571,7 +570,7 @@ margin_top = -79.5164
 margin_right = -132.536
 margin_bottom = -57.5164
 theme = ExtResource( 1 )
-text = "Назад:      "
+text = "Назад:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -613,7 +612,7 @@ margin_top = -49.5164
 margin_right = -115.536
 margin_bottom = -27.5164
 theme = ExtResource( 1 )
-text = "Налево:    "
+text = "Налево:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -655,7 +654,7 @@ margin_top = -19.5164
 margin_right = -156.536
 margin_bottom = 2.48366
 theme = ExtResource( 1 )
-text = "Направо:     "
+text = "Направо:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -697,7 +696,7 @@ margin_top = 10.4837
 margin_right = -19.5361
 margin_bottom = 27.4837
 theme = ExtResource( 1 )
-text = "Прыжок/Телепортация/Полет: "
+text = "Прыжок/Телепортация/Полет:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -739,7 +738,7 @@ margin_top = 40.4837
 margin_right = -19.5361
 margin_bottom = 57.4837
 theme = ExtResource( 1 )
-text = "Бег/Магический щит/Снижение: "
+text = "Бег/Магический щит/Снижение:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1037,72 +1036,72 @@ __meta__ = {
 
 [node name="audi" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-[connection signal="mouse_entered" from="back" to="." method="_on_mouse_entered" binds= [ "Назад" ]]
+[connection signal="mouse_entered" from="back" to="." method="_on_mouse_entered" binds= [ "Назад", "Back" ]]
 [connection signal="mouse_exited" from="back" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
-[connection signal="mouse_entered" from="mouse_slider" to="." method="_on_mouse_entered" binds= [ "Настройка чувствительности мыши" ]]
+[connection signal="mouse_entered" from="mouse_slider" to="." method="_on_mouse_entered" binds= [ "Настройка чувствительности мыши", "Mouse sensivity setting" ]]
 [connection signal="mouse_exited" from="mouse_slider" to="." method="_on_mouse_exited"]
 [connection signal="value_changed" from="mouse_slider" to="." method="_on_mouse_slider_value_changed"]
-[connection signal="mouse_entered" from="distance_slider" to="." method="_on_mouse_entered" binds= [ "Настройка дальности прорисовки" ]]
+[connection signal="mouse_entered" from="distance_slider" to="." method="_on_mouse_entered" binds= [ "Настройка дальности прорисовки", "Render distance setting" ]]
 [connection signal="mouse_exited" from="distance_slider" to="." method="_on_mouse_exited"]
 [connection signal="value_changed" from="distance_slider" to="." method="_on_distance_slider_value_changed"]
-[connection signal="mouse_entered" from="shadows_button" to="." method="_on_mouse_entered" binds= [ "Настройка качества теней" ]]
+[connection signal="mouse_entered" from="shadows_button" to="." method="_on_mouse_entered" binds= [ "Настройка качества теней", "Shadows quality setting" ]]
 [connection signal="mouse_exited" from="shadows_button" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="shadows_button" to="." method="_on_shadows_button_pressed"]
-[connection signal="mouse_entered" from="reflections_button" to="." method="_on_mouse_entered" binds= [ "Настройка качества теней" ]]
+[connection signal="mouse_entered" from="reflections_button" to="." method="_on_mouse_entered" binds= [ "Настройка качества отражений", "Reflections quality setting" ]]
 [connection signal="mouse_exited" from="reflections_button" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="reflections_button" to="." method="_on_reflections_button_pressed"]
-[connection signal="mouse_entered" from="fullscreen_button" to="." method="_on_mouse_entered" binds= [ "Настройка полноэкранного режима" ]]
+[connection signal="mouse_entered" from="fullscreen_button" to="." method="_on_mouse_entered" binds= [ "Настройка полноэкранного режима", "Fullscreen setting" ]]
 [connection signal="mouse_exited" from="fullscreen_button" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="fullscreen_button" to="." method="_on_fullscreen_button_pressed"]
-[connection signal="mouse_entered" from="sound_slider" to="." method="_on_mouse_entered" binds= [ "Настройка громкости звуков" ]]
+[connection signal="mouse_entered" from="sound_slider" to="." method="_on_mouse_entered" binds= [ "Настройка громкости звуков", "Sound volume setting" ]]
 [connection signal="mouse_exited" from="sound_slider" to="." method="_on_mouse_exited"]
 [connection signal="value_changed" from="sound_slider" to="." method="_on_sound_slider_value_changed"]
-[connection signal="mouse_entered" from="music_slider" to="." method="_on_mouse_entered" binds= [ "Настройка громкости музыки" ]]
+[connection signal="mouse_entered" from="music_slider" to="." method="_on_mouse_entered" binds= [ "Настройка громкости музыки", "Music volume setting" ]]
 [connection signal="mouse_exited" from="music_slider" to="." method="_on_mouse_exited"]
 [connection signal="value_changed" from="music_slider" to="." method="_on_music_slider_value_changed"]
-[connection signal="mouse_entered" from="controls" to="." method="_on_mouse_entered" binds= [ "Настроить управление" ]]
+[connection signal="mouse_entered" from="controls" to="." method="_on_mouse_entered" binds= [ "Настроить управление", "Set control buttons" ]]
 [connection signal="mouse_exited" from="controls" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="controls" to="." method="_on_controls_pressed"]
-[connection signal="mouse_entered" from="Controls/back" to="." method="_on_mouse_entered" binds= [ "Назад" ]]
+[connection signal="mouse_entered" from="Controls/back" to="." method="_on_mouse_entered" binds= [ "Назад", "Back" ]]
 [connection signal="mouse_exited" from="Controls/back" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="Controls/back" to="." method="_on_controls_back_pressed"]
-[connection signal="mouse_entered" from="Controls/default" to="." method="_on_mouse_entered" binds= [ "Сбросить настройки управления" ]]
+[connection signal="mouse_entered" from="Controls/default" to="." method="_on_mouse_entered" binds= [ "Сбросить настройки управления", "Reset defalut settings" ]]
 [connection signal="mouse_exited" from="Controls/default" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="Controls/default" to="." method="_on_default_pressed"]
 [connection signal="gui_input" from="Controls/forwardBack" to="." method="_on_controls_gui_input" binds= [ "ui_up" ]]
-[connection signal="mouse_entered" from="Controls/forwardBack" to="." method="_on_controls_mouse_entered" binds= [ "forwardBack", "Настроить клавишу \"вперед\"" ]]
+[connection signal="mouse_entered" from="Controls/forwardBack" to="." method="_on_controls_mouse_entered" binds= [ "forwardBack", "Настроить клавишу \"вперед\"", "Set \"forward\" button" ]]
 [connection signal="mouse_exited" from="Controls/forwardBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/backBack" to="." method="_on_controls_gui_input" binds= [ "ui_down" ]]
-[connection signal="mouse_entered" from="Controls/backBack" to="." method="_on_controls_mouse_entered" binds= [ "backBack", "Настроить клавишу \"назад\"" ]]
+[connection signal="mouse_entered" from="Controls/backBack" to="." method="_on_controls_mouse_entered" binds= [ "backBack", "Настроить клавишу \"назад\"", "Set \"back\" button" ]]
 [connection signal="mouse_exited" from="Controls/backBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/leftBack" to="." method="_on_controls_gui_input" binds= [ "ui_left" ]]
-[connection signal="mouse_entered" from="Controls/leftBack" to="." method="_on_controls_mouse_entered" binds= [ "leftBack", "Настроить клавишу \"налево\"" ]]
+[connection signal="mouse_entered" from="Controls/leftBack" to="." method="_on_controls_mouse_entered" binds= [ "leftBack", "Настроить клавишу \"налево\"", "Set \"left\" button" ]]
 [connection signal="mouse_exited" from="Controls/leftBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/rightBack" to="." method="_on_controls_gui_input" binds= [ "ui_right" ]]
-[connection signal="mouse_entered" from="Controls/rightBack" to="." method="_on_controls_mouse_entered" binds= [ "rightBack", "Настроить клавишу \"направо\"" ]]
+[connection signal="mouse_entered" from="Controls/rightBack" to="." method="_on_controls_mouse_entered" binds= [ "rightBack", "Настроить клавишу \"направо\"", "Set \"right\" button" ]]
 [connection signal="mouse_exited" from="Controls/rightBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/jumpBack" to="." method="_on_controls_gui_input" binds= [ "jump" ]]
-[connection signal="mouse_entered" from="Controls/jumpBack" to="." method="_on_controls_mouse_entered" binds= [ "jumpBack", "Настроить клавишу \"прыжок/полет/телепортация\"" ]]
+[connection signal="mouse_entered" from="Controls/jumpBack" to="." method="_on_controls_mouse_entered" binds= [ "jumpBack", "Настроить клавишу \"прыжок/телепортация/полет\"", "Set \"jump/teleport/fly up\" button" ]]
 [connection signal="mouse_exited" from="Controls/jumpBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/runBack" to="." method="_on_controls_gui_input" binds= [ "ui_shift" ]]
-[connection signal="mouse_entered" from="Controls/runBack" to="." method="_on_controls_mouse_entered" binds= [ "runBack", "Настроить клавишу \"бег/магический щит\"" ]]
+[connection signal="mouse_entered" from="Controls/runBack" to="." method="_on_controls_mouse_entered" binds= [ "runBack", "Настроить клавишу \"бег/магический щит\"", "Set \"run/magical shield/fly down\" button" ]]
 [connection signal="mouse_exited" from="Controls/runBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/useBack" to="." method="_on_controls_gui_input" binds= [ "use" ]]
-[connection signal="mouse_entered" from="Controls/useBack" to="." method="_on_controls_mouse_entered" binds= [ "useBack", "Настроить клавишу \"использовать\"" ]]
+[connection signal="mouse_entered" from="Controls/useBack" to="." method="_on_controls_mouse_entered" binds= [ "useBack", "Настроить клавишу \"использовать\"", "Set \"use\" button" ]]
 [connection signal="mouse_exited" from="Controls/useBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/crouchBack" to="." method="_on_controls_gui_input" binds= [ "crouch" ]]
-[connection signal="mouse_entered" from="Controls/crouchBack" to="." method="_on_controls_mouse_entered" binds= [ "crouchBack", "Настроить клавишу \"присесть\"" ]]
+[connection signal="mouse_entered" from="Controls/crouchBack" to="." method="_on_controls_mouse_entered" binds= [ "crouchBack", "Настроить клавишу \"присесть\"", "Set \"sit\" button" ]]
 [connection signal="mouse_exited" from="Controls/crouchBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/dashBack" to="." method="_on_controls_gui_input" binds= [ "dash" ]]
-[connection signal="mouse_entered" from="Controls/dashBack" to="." method="_on_controls_mouse_entered" binds= [ "dashBack", "Настроить клавишу \"подкат\"" ]]
+[connection signal="mouse_entered" from="Controls/dashBack" to="." method="_on_controls_mouse_entered" binds= [ "dashBack", "Настроить клавишу \"подкат\"", "Set \"dodge\" button" ]]
 [connection signal="mouse_exited" from="Controls/dashBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/getGunBack" to="." method="_on_controls_gui_input" binds= [ "getGun" ]]
-[connection signal="mouse_entered" from="Controls/getGunBack" to="." method="_on_controls_mouse_entered" binds= [ "getGunBack", "Настроить клавишу \"достать оружие\"" ]]
+[connection signal="mouse_entered" from="Controls/getGunBack" to="." method="_on_controls_mouse_entered" binds= [ "getGunBack", "Настроить клавишу \"достать оружие\"", "Set \"get gun\" button" ]]
 [connection signal="mouse_exited" from="Controls/getGunBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/legsBack" to="." method="_on_controls_gui_input" binds= [ "legsHit" ]]
-[connection signal="mouse_entered" from="Controls/legsBack" to="." method="_on_controls_mouse_entered" binds= [ "legsBack", "Настроить клавишу \"ближний удар\"" ]]
+[connection signal="mouse_entered" from="Controls/legsBack" to="." method="_on_controls_mouse_entered" binds= [ "legsBack", "Настроить клавишу \"ближний удар\"", "Set \"close hit\" button" ]]
 [connection signal="mouse_exited" from="Controls/legsBack" to="." method="_on_controls_mouse_exited"]
 [connection signal="gui_input" from="Controls/cameraBack" to="." method="_on_controls_gui_input" binds= [ "changeView" ]]
-[connection signal="mouse_entered" from="Controls/cameraBack" to="." method="_on_controls_mouse_entered" binds= [ "cameraBack", "Настроить клавишу \"сменить камеру\"" ]]
+[connection signal="mouse_entered" from="Controls/cameraBack" to="." method="_on_controls_mouse_entered" binds= [ "cameraBack", "Настроить клавишу \"сменить камеру\"", "Set \"change view\" button" ]]
 [connection signal="mouse_exited" from="Controls/cameraBack" to="." method="_on_controls_mouse_exited"]

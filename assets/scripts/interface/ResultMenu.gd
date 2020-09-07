@@ -28,6 +28,20 @@ var minutes = 0
 var seconds = 0
 
 
+func _change_interface_language():
+	$page_label.text = "/Phoenix2/Result_menu"
+	$Label.text = "[Level passed]"
+	$label1.text = "Scores count:"
+	$label2.text = "Passage time:"
+	$label3.text = "Kills:"
+	$label4.text = "Stealth kills:"
+	$label5.text = "Bloody kills:"
+	$label6.text = "Race:"
+	$Silent_Assasin_label.text = "The alarm was not raised"
+	$continue.text = "               [Continue]"
+	$exit.text = "               [To main menu]"
+
+
 func save_stats(stats):
 	var save_file = File.new()
 	save_file.open_compressed("res://stats.sav", File.WRITE, File.COMPRESSION_FASTLZ)
@@ -49,7 +63,27 @@ func load_stats():
 	return null
 
 
+func _setRaceName():
+	match G.race:
+		0:
+			if G.english:
+				$race_label.text = "Earthpony"
+		1: 
+			if G.english:
+				$race_label.text = "Unicorn"
+			else:
+				$race_label.text = "Единорог"
+		2:
+			if G.english:
+				$race_label.text = "Pegasus"
+			else:
+				$race_label.text = "Пегас"
+
+
 func showRecords():
+	if G.english:
+		_change_interface_language()
+	
 	var scores = G.scores
 	for reason in score_reasons.keys():
 		scores += score_reasons[reason] * SCORES[reason]
@@ -70,12 +104,7 @@ func showRecords():
 	$Stealth_Kill_label.text = str(score_reasons.Stealth_Kill)
 	$Meat_Kill_label.text = str(score_reasons.Meat_Kill)
 	
-	match G.race:
-		1: 
-			$race_label.text = "Единорог"
-		2:
-			$race_label.text = "Пегас"
-	
+	_setRaceName()
 	
 	if score_reasons.Silent_Assasin > 0:
 		$Silent_Assasin_label.visible = true
@@ -115,11 +144,9 @@ func _count_time(delta):
 
 
 func _ready():
-	match G.race:
-		1: 
-			$race_label.text = "Единорог"
-		2:
-			$race_label.text = "Пегас"
+	if G.english:
+		_change_interface_language()
+	_setRaceName()
 
 
 func _process(delta):

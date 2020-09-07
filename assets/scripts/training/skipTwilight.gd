@@ -9,7 +9,16 @@ var phrase_2 = {
 		"Офицер находится в здании по центру карты",
 		"Скорее всего, входная дверь будет закрыта, но ключ от неё должен быть неподалеку",
 		"Устраните его любым выбранным способом и покиньте базу",
-		"Удачи"
+		"Удачи!"
+	],
+	"instructions_text_eng": [
+		"So, are you ready for the mission?",
+		"The place, where you be sent, is marked on the map with red marker.",
+		"Make a hole in a fence, to get through it on the base.",
+		"The officer is in a building in the center of the map.",
+		"Most likely, front door will be locked, but it's key must be nearby.",
+		"Eliminate him in any way you choose and leave the base.",
+		"Good luck!"
 	],
 	"instructions_timers": [
 		3.3, 
@@ -30,6 +39,7 @@ var timer_wait = 5
 func _changePhrase(phrase_name):
 	twilight.phrase = phrase_2[phrase_name]
 	twilight.phraseText = phrase_2[phrase_name + "_text"]
+	twilight.phraseTextEng = phrase_2[phrase_name + "_text_eng"]
 	twilight.textTimers = phrase_2[phrase_name + "_timers"]
 	twilight.textI = 0
 
