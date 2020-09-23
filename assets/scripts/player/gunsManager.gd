@@ -318,6 +318,9 @@ func _ready():
 		weaponStats["pistol_have"] = true
 		get_node("../player_body/Armature/Skeleton/BoneAttachment 3/shotgunBag").visible = true
 		weaponModels["pistol_off"].visible = true
+	
+	if parent.check_clone_flask:
+		collision.disabled = true
 
 
 func _process(delta):

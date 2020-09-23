@@ -43,7 +43,6 @@ func _ready():
 		],
 		"greetings_timers": [1.3, 4.5, 2.5, 2.1],
 		
-		
 		"not_unicorn": preload("res://assets/audio/phrases/instructions/magic/magic-non-unicorns.ogg"),
 		"not_unicorn_text": ["Прошу прощения, эти инструкции предназначены только для единорогов"],
 		"not_unicorn_text_eng": ["My apologies, this instructions are only for unicorns."],
@@ -100,7 +99,12 @@ func _ready():
 			6.5,
 			4.5,
 			2.8
-		]
+		],
+		
+		"die": preload("res://assets/audio/phrases/instructions/magic/magic-revolt.ogg"),
+		"die_text": ["Простите, если я сделала что-то не так..."],
+		"die_text_eng": ["Sorry if I did something wrong..."],
+		"die_timers": [2],
 	}
 
 
@@ -152,7 +156,7 @@ func startTrainingTeleport():
 			messages.ShowMessage("Reset:" + str(got_scores_teleport) + " scores", 1.5)
 		else:
 			messages.ShowMessage(str(got_scores_teleport) + " очков сброшено", 1.5)
-		G.scores -= got_scores_teleport
+		G.decreaseScores(got_scores_teleport)
 		got_scores_teleport = 0
 		eqipManager.removeReservedEqip()
 	increase = 1
@@ -183,7 +187,7 @@ func startTrainingShield():
 			messages.ShowMessage("Reset:" + str(got_scores_shield) + " scores", 1.5)
 		else:
 			messages.ShowMessage(str(got_scores_shield) + " очков сброшено", 1.5)
-		G.scores -= got_scores_shield
+		G.decreaseScores(got_scores_shield)
 		got_scores_shield = 0
 		eqipManager.removeReservedEqip()
 		G.player.stats.Health = 100

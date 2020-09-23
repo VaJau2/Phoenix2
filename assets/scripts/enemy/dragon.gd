@@ -260,7 +260,7 @@ func _process(delta):
 					
 					#--- летаем по кругу
 					if !close_to_point:
-						moveTo(roundPoints[pointI], 11)
+						moveTo(roundPoints[pointI], 20)
 						
 						if !onetimeAnim: #типа динамично определяем сторону полета
 							_animFlying() #определяя скорость поворота
@@ -283,7 +283,7 @@ func _process(delta):
 							damage_timer -= delta
 						else:
 							damage_timer = 3
-							G.player.stats.TakeDamage(MOUTH_DAMAGE, Vector2(0,0))
+							G.player.stats.TakeDamage(MOUTH_DAMAGE, Vector2(0,0), true)
 					else:
 						if player_in_mouth:
 							_letPlayerGo()

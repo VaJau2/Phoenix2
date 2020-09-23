@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flutty-table-eng.png-9723f5beca0d8daf45c318932c24b88d.stex"
+path="res://.import/dialogue_cloud.png-3685cab6785a02fc5f7b74ae1d474e29.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/flutty-table-eng.png"
-dest_files=[ "res://.import/flutty-table-eng.png-9723f5beca0d8daf45c318932c24b88d.stex" ]
+source_file="res://assets/textures/interface/dialogue_cloud.png"
+dest_files=[ "res://.import/dialogue_cloud.png-3685cab6785a02fc5f7b74ae1d474e29.stex" ]
 
 [params]
 

@@ -1,5 +1,12 @@
 extends Area
 
+var phrases = {
+	"die": preload("res://assets/audio/phrases/instructions/instructions-revolt.ogg"),
+	"die_text": ["Если ты думаешь, что роботы не чувствуют боль, ты ошибаешься. Мне больно и обидно за тебя."],
+	"die_text_eng": ["If you think, that robots don't feel pain, you're wrong. It hurts because of resentment for you."],
+	"die_timers": [5]
+}
+
 var phrase_2 = {
 	"instructions": preload("res://assets/audio/phrases/instructions/instructions2.ogg"),
 	"instructions_text": [

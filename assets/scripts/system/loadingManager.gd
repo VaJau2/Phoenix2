@@ -36,6 +36,8 @@ func saveGame():
 	resultMenu.save_stats(saved_stats)
 	
 	var label = get_node("/root/Main/canvas/savedLabel")
+	if G.english:
+		label.text = "Game saved"
 	label.visible = true
 	yield(get_tree().create_timer(1),"timeout")
 	label.visible = false

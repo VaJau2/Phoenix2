@@ -16,11 +16,10 @@ var material_sounds = {
 	"wood": preload("res://assets/audio/guns/legHits/wood_hit.wav")
 }
 
-onready var player_script = get_parent()
+onready var player = get_parent()
 onready var audi = get_node("../audi_hitted")
 
 var temp_front = false
-var hitting = false
 var stopping_hit = false
 var hitting_timer = 0
 
@@ -59,24 +58,24 @@ func handleVictim(victim, damage):
 
 func start_hit(front):
 	temp_front = front
-	hitting = true
-	player_script.mayMove = false
+	player.hitting = true
+	player.mayMove = false
 	if front:
-		player_script.body_follows_camera = true
-		player_script.body.playback.travel("HitFront-1")
+		player.body_follows_camera = true
+		player.body.playback.travel("HitFront-1")
 	else:
-		player_script.body.playback.travel("HitBack-1")
+		player.body.playback.travel("HitBack-1")
 
 
 func finish_hit():
 	stopping_hit = true
 	if temp_front:
-		if player_script.weapons._isPistol():
-			player_script.body_follows_camera = false
+		if player.weapons._isPistol():
+			player.body_follows_camera = false
 		
-		player_script.body.playback.travel("HitFront-2")
+		player.body.playback.travel("HitFront-2")
 	else:
-		player_script.body.playback.travel("HitBack-2")
+		player.body.playback.travel("HitBack-2")
 	yield(get_tree().create_timer(0.15),"timeout")
 	audi.stream = tryHit
 	audi.play()
@@ -100,18 +99,18 @@ func finish_hit():
 	audi.play()
 	
 	yield(get_tree().create_timer(0.5),"timeout")
-	hitting = false
-	player_script.mayMove = true
+	player.hitting = false
+	player.mayMove = true
 	stopping_hit = false
 
 
 func _process(delta):
-	if !hitting && player_script.stats.Health > 0 && player_script.mayMove && !player_script.running && !player_script.flying:
-		if Input.is_action_just_pressed("legsHit") && player_script.is_on_floor():
+	if !player.hitting && player.stats.Health > 0 && player.mayMove && !player.running && !player.flying:
+		if Input.is_action_just_pressed("legsHit") && player.is_on_floor():
 			hitting_timer = 0
-			var front_hit = abs(player_script.body.body_rot) < 60
+			var front_hit = abs(player.body.body_rot) < 60
 			start_hit(front_hit)
-	if hitting:
+	if player.hitting:
 		if hitting_timer < 5:
 			hitting_timer += delta
 		

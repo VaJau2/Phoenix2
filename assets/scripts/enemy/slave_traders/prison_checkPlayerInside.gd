@@ -7,7 +7,7 @@ var player_inside = false
 func _on_checkPlayerInside_body_entered(body):
 	if body.name == "Player":
 		player_inside = true
-		if G.player.stealth.stage != 0:
+		if G.player.stealth.stage != 0 && G.player.mayMove:
 			enemy_manager.MakeEveryoneCalm()
 			var closerTrader = enemy_manager._getCloserTrader()
 			if closerTrader:

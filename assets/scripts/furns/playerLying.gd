@@ -59,25 +59,25 @@ func Faint():
 	faintListener.current = true
 	
 	var slaves = get_node("/root/Main/slaves").get_children()
-	var slaves_alive = true
-	for temp_slave in slaves:
-		if temp_slave.Health > 0:
-			temp_slave.moveToPrison()
-		else:
-			slaves_alive = false
+	if slaves.size() > 0:
+		for temp_slave in slaves:
+			if temp_slave && temp_slave.Health > 0:
+				temp_slave.moveToPrison()
+		
+		if faints_count > 2:
+			if !noteThreat.is_visible():
+				noteThreat.set_visible(true)
+			else:
+				var slaveI = 0
+				if slaves.size() > 1:
+					slaveI = randi() % 1
+				if slaves[slaveI]:
+					slaves[slaveI].queue_free()
+					slaves.remove(slaveI)
+					#slaves[slaveI].TakeDamage(50, 0, true)
+					#slaves[slaveI].audi.stop()
 	
-	if faints_count > 2 && slaves_alive:
-		if !noteThreat.is_visible():
-			noteThreat.set_visible(true)
-		else:
-			var slaveI = 0
-			if slaves.size() > 1:
-				slaveI = randi() % 1
-			slaves[slaveI].TakeDamage(50, 0, true)
-			slaves[slaveI].audi.stop()
-	
-	
-	enemy_manager.CheckDead()
+	#enemy_manager.CheckDead()
 	enemy_manager.MakeEveryoneCalm(true)
 	if prisonDoor.open:
 		prisonDoor.clickFurn("key_all")

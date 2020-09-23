@@ -28,6 +28,10 @@ var saved_equipment = []
 var saved_coat = false
 var load_equipment = false
 
+func decreaseScores(num):
+	scores -= num
+	if scores < 0:
+		scores = 0
 
 func goto_scene(path, loading = false): # game requests to switch to this scene
 	load_game = loading

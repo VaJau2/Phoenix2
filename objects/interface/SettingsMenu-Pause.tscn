@@ -123,22 +123,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="mouse_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.0
-margin_top = -100.0
-margin_right = 228.0
-margin_bottom = -78.0
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="mouse_slider" type="HSlider" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -153,6 +137,36 @@ min_value = 0.01
 max_value = 0.8
 step = 0.01
 value = 0.1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mouse_border" type="Label" parent="mouse_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -10.0
+margin_top = -5.0
+margin_right = -4.0
+margin_bottom = 17.0
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mouse_border2" type="Label" parent="mouse_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -5.0
+margin_right = 10.0
+margin_bottom = 17.0
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -174,35 +188,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="distance_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.0
-margin_top = -50.0
-margin_right = 228.0
-margin_bottom = -28.0
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="distance_slider" type="HSlider" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -79.0
-margin_top = -52.0
+margin_top = -54.847
 margin_right = 221.0
-margin_bottom = -31.9999
+margin_bottom = -34.8469
 theme = ExtResource( 1 )
 min_value = 200.0
 max_value = 600.0
 value = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="distance_border" type="Label" parent="distance_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -10.0
+margin_top = -5.00006
+margin_right = 306.0
+margin_bottom = 16.9999
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="distance_border2" type="Label" parent="distance_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -5.00006
+margin_right = 10.0
+margin_bottom = 9.99994
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -224,22 +252,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="shadows_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.5988
-margin_top = -11.5861
-margin_right = 228.401
-margin_bottom = 10.4139
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="shadows_button" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -251,6 +263,35 @@ margin_right = 227.401
 margin_bottom = 5.41388
 theme = ExtResource( 1 )
 text = "Максимальное"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shadows_border" type="Label" parent="shadows_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -8.49998
+margin_right = 6.0
+margin_bottom = 13.5
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shadows_border2" type="Label" parent="shadows_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -5.99982
+margin_top = -8.49998
+margin_right = 0.000183105
+margin_bottom = 6.50002
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -272,22 +313,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="reflections_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.5988
-margin_top = 23.4139
-margin_right = 228.401
-margin_bottom = 45.4139
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="reflections_button" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -299,6 +324,35 @@ margin_right = 227.401
 margin_bottom = 38.4139
 theme = ExtResource( 1 )
 text = "Максимальное"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="reflections_border" type="Label" parent="reflections_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -8.5
+margin_right = 6.0
+margin_bottom = 6.5
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="reflections_border2" type="Label" parent="reflections_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -5.99969
+margin_top = -8.5
+margin_right = 0.000305176
+margin_bottom = 6.5
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -320,22 +374,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="fullscreeen_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -86.7842
-margin_top = 58.8656
-margin_right = 229.216
-margin_bottom = 80.8656
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="fullscreen_button" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -347,6 +385,35 @@ margin_right = 228.216
 margin_bottom = 73.8656
 theme = ExtResource( 1 )
 text = "Выключен"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fullscreeen_border" type="Label" parent="fullscreen_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -8.5
+margin_right = 6.0
+margin_bottom = 6.5
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fullscreeen_border2" type="Label" parent="fullscreen_button"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -6.00021
+margin_top = -8.5
+margin_right = -0.000213623
+margin_bottom = 6.5
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -364,22 +431,6 @@ margin_bottom = 118.309
 theme = ExtResource( 1 )
 text = "Громкость звуков:"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="sound_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.5988
-margin_top = 96.3092
-margin_right = 228.401
-margin_bottom = 118.309
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -402,6 +453,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="sound_border" type="Label" parent="sound_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -7.49989
+margin_right = -3.0
+margin_bottom = 7.50011
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sound_border2" type="Label" parent="sound_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 3.00018
+margin_top = -7.49989
+margin_right = 9.00018
+margin_bottom = 7.50011
+theme = ExtResource( 1 )
+text = "]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="music_label" type="Label" parent="."]
 modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
 anchor_left = 0.5
@@ -415,22 +496,6 @@ margin_bottom = 148.309
 theme = ExtResource( 1 )
 text = "Громкость музыки:"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="music_border" type="Label" parent="."]
-modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -87.5988
-margin_top = 126.309
-margin_right = 228.401
-margin_bottom = 148.309
-theme = ExtResource( 1 )
-text = "[                                                                            ]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -449,6 +514,36 @@ min_value = -8.0
 max_value = 3.0
 step = 0.1
 value = 3.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music_border" type="Label" parent="music_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -7.50002
+margin_right = -3.0
+margin_bottom = 7.49998
+theme = ExtResource( 1 )
+text = "["
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music_border2" type="Label" parent="music_slider"]
+modulate = Color( 0.223529, 0.752941, 0.145098, 1 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 3.00018
+margin_top = -7.00002
+margin_right = 9.00018
+margin_bottom = 7.99998
+theme = ExtResource( 1 )
+text = "]"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -5,7 +5,7 @@ extends Camera
 
 const RAY_LENGTH = 6
 onready var messages = get_node("/root/Main/canvas/messages")
-var flutty_onetime = false
+
 
 onready var parent = get_node("../../")
 
@@ -120,10 +120,6 @@ func _physics_process(delta):
 			elif temp_object.collider.name == "map_to_next_loc":
 				showHint(" - закончить обучение\nи отправиться на базу", \
 				" - finish training\nand go to base")
-		
-			elif "Fluttershy" in temp_object.collider.name && !flutty_onetime:
-				showHint(" - получить дополнительные\nочки за просто так", \
-				" - get extra scores\nfor nothing")
 			
 			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
 				if temp_object.collider.collared:
@@ -173,35 +169,6 @@ func _input(event):
 				var equipManager = get_node("/root/Main/props/buildings/equipment")
 				equipManager.saveEquip()
 				G.goto_scene("res://scenes/Main.tscn")
-			
-			elif "Fluttershy" in temp_object.collider.name && !flutty_onetime:
-				flutty_onetime = true
-				if G.race == 0:
-					G.scores += 250
-					if G.english:
-						messages.ShowMessage("Got 250 scores", 1)
-					else:
-						messages.ShowMessage("250 очков получено", 1)
-				else:
-					if G.english:
-						messages.ShowMessage("only for earthponies :P", 1)
-					else:
-						messages.ShowMessage("только для земнопони :P", 1)
-						
-					yield(get_tree().create_timer(2),"timeout")
-					
-					if G.english:
-						messages.ShowMessage("okay, since you're here\nyou deserve this scores", 2)
-					else:
-						messages.ShowMessage("ладно, раз ты умудрился сюда попасть,\nто заслуживаешь эти очки", 2)
-					
-					yield(get_tree().create_timer(2.5),"timeout")
-					
-					G.scores += 250
-					if G.english:
-						messages.ShowMessage("Got 250 scores", 1)
-					else:
-						messages.ShowMessage("250 очков получено", 1)
 			
 			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
 				if temp_object.collider.collared: #--освобождаем

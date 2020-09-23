@@ -94,8 +94,8 @@ func MakeDamage(victim, damage, shapeID = 0):
 		cross.setRed()
 
 
-func TakeDamage(damage, angle):
-	if Health > 0 && parent.mayMove:
+func TakeDamage(damage, angle, ignoreBlock = false):
+	if Health > 0 && (parent.mayMove || ignoreBlock):
 		_hitEffects(angle)
 		
 		if parent.equipment.have_armor:

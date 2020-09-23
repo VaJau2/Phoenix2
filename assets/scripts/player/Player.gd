@@ -12,6 +12,8 @@ export var have_coat = false
 export var check_clone_flask = false
 
 var mayMove = true
+var hitting = false
+
 var thirdView = false
 var lying = false #ограничение для вращения тела
 var roped = false
@@ -78,7 +80,6 @@ var fly_increase = 5.0
 var fly_decrease = 4
 var wings_sound = preload("res://assets/audio/flying/pegasus-wings.wav")
 var wind_sound = preload("res://assets/audio/flying/wind.wav")
-
 
 var not_socks_material = preload("res://assets/materials/player/player_body.material")
 var socks_material = preload("res://assets/materials/player/player_body_socks.material")
@@ -244,7 +245,7 @@ func process_input(delta):
 		var effect1 = teleport_effect.instance()
 		get_parent().add_child(effect1)
 		effect1.global_transform.origin = global_transform.origin
-
+		
 		global_transform.origin = temp_teleport_mark.global_transform.origin
 		temp_teleport_mark.queue_free()
 		stats.mana -= stats.TELEPORT_COST
@@ -357,27 +358,33 @@ func process_input(delta):
 					vel.y = JUMP_SPEED
 		else:
 			if !jump_hint.visible && stats.mana > stats.TELEPORT_COST && Input.is_action_pressed("jump"):
-				tempRay = weapons.enableHeadRay(stats.TELEPORT_DISTANCE)
-				if !teleport_pressed:
-					teleport_pressed = true
+				if stats.Health > 0:
+					tempRay = weapons.enableHeadRay(stats.TELEPORT_DISTANCE)
+					if !teleport_pressed:
+						teleport_pressed = true
+						var wr = weakref(temp_teleport_mark)
+						if !wr.get_ref():
+							temp_teleport_mark = teleport_mark.instance()
+							get_parent().add_child(temp_teleport_mark)
+							temp_teleport_mark.global_transform.origin = global_transform.origin
+							
+					elif tempRay.is_colliding() && tempRay.get_collider().name != "sky":
+						var wr = weakref(temp_teleport_mark) #оно может внезапно стереться даже здесь
+						if wr.get_ref():
+							var place = tempRay.get_collision_point()
+							temp_teleport_mark.global_transform.origin = place
+							
+							#чтоб не перемещаться через стенки бункера наружу
+							if teleport_inside && temp_teleport_mark.translation.y > translation.y + 3:
+								temp_teleport_mark.translation.y -= 3
+						else:
+							temp_teleport_mark = teleport_mark.instance()
+							get_parent().add_child(temp_teleport_mark)
+				elif teleport_pressed:
+					teleport_pressed = false
 					var wr = weakref(temp_teleport_mark)
-					if !wr.get_ref():
-						temp_teleport_mark = teleport_mark.instance()
-						get_parent().add_child(temp_teleport_mark)
-						temp_teleport_mark.global_transform.origin = global_transform.origin
-						
-				elif tempRay.is_colliding() && tempRay.get_collider().name != "sky":
-					var wr = weakref(temp_teleport_mark) #оно может внезапно стереться даже здесь
 					if wr.get_ref():
-						var place = tempRay.get_collision_point()
-						temp_teleport_mark.global_transform.origin = place
-						
-						#чтоб не перемещаться через стенки бункера наружу
-						if teleport_inside && temp_teleport_mark.translation.y > translation.y + 3:
-							temp_teleport_mark.translation.y -= 3
-					else:
-						temp_teleport_mark = teleport_mark.instance()
-						get_parent().add_child(temp_teleport_mark)
+						temp_teleport_mark.queue_free()
 		
 		# Crouching
 		if crouch_cooldown > 0:

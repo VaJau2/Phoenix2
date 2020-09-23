@@ -155,7 +155,9 @@ func TakeDamage(damage: int, shapeID = 0):
 				scores.score_reasons.Kill += 1
 			
 			yield(get_tree().create_timer(2, false),"timeout")
-			anim.queue_free()
+			var wr = weakref(anim)
+			if wr.get_ref():
+				anim.queue_free()
 			get_parent().addDead(self)
 	else:
 		if state != 1:

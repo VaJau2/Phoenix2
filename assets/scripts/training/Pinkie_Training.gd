@@ -203,7 +203,7 @@ func startTraining():
 			messages.ShowMessage("Reset " + str(got_scores) + " scores", 1.5)
 		else:
 			messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
-		G.scores -= got_scores
+		G.decreaseScores(got_scores)
 		got_scores = 0
 		eqipManager.removeReservedEqip()
 	

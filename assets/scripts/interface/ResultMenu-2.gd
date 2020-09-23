@@ -110,10 +110,19 @@ func showRecords():
 	$Clones_label.text = str(score_reasons.Clones_survive)
 	
 	match G.race:
+		0:
+			if G.english:
+				$race_label.text = "Earthpony"
 		1: 
-			$race_label.text = "Единорог"
+			if G.english:
+				$race_label.text = "Unicorn"
+			else:
+				$race_label.text = "Единорог"
 		2:
-			$race_label.text = "Пегас"
+			if G.english:
+				$race_label.text = "Pegasus"
+			else:
+				$race_label.text = "Пегас"
 	
 	if G.english:
 		$Slaves_label.text = slaveVariantsEng[score_reasons.Slaves]

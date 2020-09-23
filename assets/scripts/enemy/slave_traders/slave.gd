@@ -144,7 +144,7 @@ func _process(delta):
 	
 	if Health > 0 && !G.paused && active:
 		if collared:
-			if "collared" in otherSlave && otherSlave.collared && otherSlave.Health > 0:
+			if otherSlave && "collared" in otherSlave && otherSlave.collared && otherSlave.Health > 0:
 				anim.play(IdleAnim)
 			else:
 				anim.play("Sit")

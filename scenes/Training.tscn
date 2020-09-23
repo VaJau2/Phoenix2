@@ -1,4 +1,4 @@
-[gd_scene load_steps=205 format=2]
+[gd_scene load_steps=206 format=2]
 
 [ext_resource path="res://objects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/materials/props/locations/sand.tres" type="Material" id=2]
@@ -8,10 +8,12 @@
 [ext_resource path="res://objects/interface/canvas.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/props/plants/tree1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://objects/props/plants/cactus1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/audio/phrases/instructions/extra/extra-greetings.ogg" type="AudioStream" id=9]
 [ext_resource path="res://objects/interface/PauseMenu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/audio/item/bandageChange.wav" type="AudioStream" id=11]
 [ext_resource path="res://assets/scripts/training/skipTwilight.gd" type="Script" id=12]
 [ext_resource path="res://objects/interface/DealthMenu.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/scripts/training/Flutty_Training.gd" type="Script" id=14]
 [ext_resource path="res://assets/scripts/furns/climbing.gd" type="Script" id=18]
 [ext_resource path="res://objects/enemies/robots/roboEye.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/materials/physics/wood.phymat" type="PhysicsMaterial" id=23]
@@ -106,7 +108,6 @@
 [ext_resource path="res://assets/materials/props/furniture/trash/bottle.material" type="Material" id=118]
 [ext_resource path="res://assets/materials/props/light/metal.material" type="Material" id=119]
 [ext_resource path="res://assets/materials/props/furniture/trash/cola-bottle.material" type="Material" id=120]
-[ext_resource path="res://assets/textures/flutty-table.png" type="Texture" id=121]
 [ext_resource path="res://assets/scripts/furns/mirror-Area.tres.gd" type="Script" id=122]
 
 [sub_resource type="PlaneMesh" id=1]
@@ -949,53 +950,10 @@ surfaces/2 = {
 [sub_resource type="ConcavePolygonShape" id=94]
 data = PoolVector3Array( -1.0284, 1.3147, -1.5581, -1.0284, 0.9154, -0.4831, -1.0284, 0.9154, -1.5581, -1.0284, 1.3147, -1.5581, -1.0284, 1.3147, -0.4831, -1.0284, 0.9154, -0.4831, 0.8623, 1.3147, -1.5581, -1.0284, 0.9154, -1.5581, 0.8623, 0.9154, -1.5581, 0.8623, 1.3147, -1.5581, -1.0284, 1.3147, -1.5581, -1.0284, 0.9154, -1.5581, 0.8623, 1.3147, 1.217, 0.8623, 0.9154, 0.113, 0.8623, 0.9154, 1.217, 0.8623, 1.3147, 1.217, 0.8623, 1.3147, 0.113, 0.8623, 0.9154, 0.113, -1.0284, 1.3147, 1.217, 0.8623, 0.9154, 1.217, -1.0284, 0.9154, 1.217, -1.0284, 1.3147, 1.217, 0.8623, 1.3147, 1.217, 0.8623, 0.9154, 1.217, -1.0284, 0.9154, -0.4831, -1, 0.9112, 0.113, -1, 0.9112, -0.4831, -1.0284, 0.9154, -0.4831, -1.0284, 0.9154, 0.113, -1, 0.9112, 0.113, 0.8623, 1.3147, 1.217, -1.0284, 1.3147, 0.113, 0.8623, 1.3147, 0.113, 0.8623, 1.3147, 1.217, -1.0284, 1.3147, 1.217, -1.0284, 1.3147, 0.113, -1.0284, 0.9154, 1.217, 0.8623, -0.0131, 1.217, -1.0284, -0.0131, 1.217, -1.0284, 0.9154, 1.217, 0.8623, 0.9154, 1.217, 0.8623, -0.0131, 1.217, 0.8623, 0.9154, 1.217, 0.8623, -0.0131, 0.113, 0.8623, -0.0131, 1.217, 0.8623, 0.9154, 1.217, 0.8623, 0.9154, 0.113, 0.8623, -0.0131, 0.113, 0.8623, 0.9154, -1.5581, -1.0284, -0.0131, -1.5581, 0.8623, -0.0131, -1.5581, 0.8623, 0.9154, -1.5581, -1.0284, 0.9154, -1.5581, -1.0284, -0.0131, -1.5581, -1.0284, 0.9154, -1.5581, -1.0284, -0.0131, -0.4831, -1.0284, -0.0131, -1.5581, -1.0284, 0.9154, -1.5581, -1.0284, 0.9154, -0.4831, -1.0284, -0.0131, -0.4831, 0.8623, -0.0131, -0.4831, 0.8623, 0.9154, -1.5581, 0.8623, -0.0131, -1.5581, 0.8623, 0.9154, -0.4831, 0.8623, 0.9154, -1.5581, 0.8623, -0.0131, -0.4831, 0.8623, 1.3147, -0.4831, -1.0284, 1.3147, -1.5581, 0.8623, 1.3147, -1.5581, 0.8623, 1.3147, -0.4831, -1.0284, 1.3147, -0.4831, -1.0284, 1.3147, -1.5581, -1, 0.9112, 0.113, -1.0284, -0.0131, 0.113, -1, -0.0131, 0.113, -1, 0.9112, 0.113, -1.0284, 0.9154, 0.113, -1.0284, -0.0131, 0.113, 0.8623, 1.3147, -0.4831, 0.8623, 0.9154, -1.5581, 0.8623, 0.9154, -0.4831, 0.8623, 1.3147, -0.4831, 0.8623, 1.3147, -1.5581, 0.8623, 0.9154, -1.5581, -1.0284, 1.3147, -0.4831, -1.0284, 0.9154, 0.113, -1.0284, 0.9154, -0.4831, -1.0284, 1.3147, -0.4831, -1.0284, 1.3147, 0.113, -1.0284, 0.9154, 0.113, -1.0284, 1.3147, 0.113, -1.0284, 0.9154, 1.217, -1.0284, 0.9154, 0.113, -1.0284, 1.3147, 0.113, -1.0284, 1.3147, 1.217, -1.0284, 0.9154, 1.217, -1.0284, -0.0131, 0.113, -1.0284, 0.9154, 1.217, -1.0284, -0.0131, 1.217, -1.0284, 0.9154, 0.113, -1.0284, 0.9154, 1.217, -1.0284, -0.0131, 0.113, 0.8623, 0.9154, 0.113, 0.8623, -0.0131, -0.4831, 0.8623, -0.0131, 0.113, 0.8623, 0.9154, 0.113, 0.8623, 0.9154, -0.4831, 0.8623, -0.0131, -0.4831, 0.8623, 1.3147, 0.113, -1.0284, 1.3147, -0.4831, 0.8623, 1.3147, -0.4831, 0.8623, 1.3147, 0.113, -1.0284, 1.3147, 0.113, -1.0284, 1.3147, -0.4831, -1.0284, 0.9154, -0.4831, -1, -0.0131, -0.4831, -1.0284, -0.0131, -0.4831, -1.0284, 0.9154, -0.4831, -1, 0.9112, -0.4831, -1, -0.0131, -0.4831, 0.8623, 1.3147, 0.113, 0.8623, 0.9154, -0.4831, 0.8623, 0.9154, 0.113, 0.8623, 1.3147, 0.113, 0.8623, 1.3147, -0.4831, 0.8623, 0.9154, -0.4831, -1, 1.3012, -0.4831, -1, 0.9112, -1.5075, -1, 0.9112, -0.4831, -1, 1.3012, -0.4831, -1, 1.3012, -1.5075, -1, 0.9112, -1.5075, -1, 1.3012, -1.5075, 0.8339, 0.9112, -1.5075, -1, 0.9112, -1.5075, -1, 1.3012, -1.5075, 0.8339, 1.3012, -1.5075, 0.8339, 0.9112, -1.5075, 0.8339, 1.3012, 0.113, 0.8339, 0.9112, 1.1661, 0.8339, 0.9112, 0.113, 0.8339, 1.3012, 0.113, 0.8339, 1.3012, 1.1661, 0.8339, 0.9112, 1.1661, 0.8339, 1.3012, 1.1661, -1, 0.9112, 1.1661, 0.8339, 0.9112, 1.1661, 0.8339, 1.3012, 1.1661, -1, 1.3012, 1.1661, -1, 0.9112, 1.1661, -1, 1.3012, 1.1661, 0.8339, 1.3012, 0.113, -1, 1.3012, 0.113, -1, 1.3012, 1.1661, 0.8339, 1.3012, 1.1661, 0.8339, 1.3012, 0.113, 0.8339, 0.9112, 1.1661, -1, -0.0131, 1.1661, 0.8339, -0.0131, 1.1661, 0.8339, 0.9112, 1.1661, -1, 0.9112, 1.1661, -1, -0.0131, 1.1661, 0.8339, -0.0131, 0.113, 0.8339, 0.9112, 1.1661, 0.8339, -0.0131, 1.1661, 0.8339, 0.9112, 0.113, 0.8339, 0.9112, 1.1661, 0.8339, -0.0131, 0.113, -1, 0.9112, -1.5075, 0.8339, -0.0131, -1.5075, -1, -0.0131, -1.5075, -1, 0.9112, -1.5075, 0.8339, 0.9112, -1.5075, 0.8339, -0.0131, -1.5075, -1, -0.0131, -0.4831, -1, 0.9112, -1.5075, -1, -0.0131, -1.5075, -1, 0.9112, -0.4831, -1, 0.9112, -1.5075, -1, -0.0131, -0.4831, 0.8339, 0.9112, -1.5075, 0.8339, -0.0131, -0.4831, 0.8339, -0.0131, -1.5075, 0.8339, 0.9112, -1.5075, 0.8339, 0.9112, -0.4831, 0.8339, -0.0131, -0.4831, -1, 1.3012, -0.4831, 0.8339, 1.3012, -1.5075, -1, 1.3012, -1.5075, -1, 1.3012, -0.4831, 0.8339, 1.3012, -0.4831, 0.8339, 1.3012, -1.5075, 0.8339, 1.3012, -1.5075, 0.8339, 0.9112, -0.4831, 0.8339, 0.9112, -1.5075, 0.8339, 1.3012, -1.5075, 0.8339, 1.3012, -0.4831, 0.8339, 0.9112, -0.4831, -1, 1.3012, 0.113, -1, 0.9112, -0.4831, -1, 0.9112, 0.113, -1, 1.3012, 0.113, -1, 1.3012, -0.4831, -1, 0.9112, -0.4831, -1, 1.3012, 1.1661, -1, 0.9112, 0.113, -1, 0.9112, 1.1661, -1, 1.3012, 1.1661, -1, 1.3012, 0.113, -1, 0.9112, 0.113, -1, 0.9112, 1.1661, -1, -0.0131, 0.113, -1, -0.0131, 1.1661, -1, 0.9112, 1.1661, -1, 0.9112, 0.113, -1, -0.0131, 0.113, 0.8339, 0.9112, -0.4831, 0.8339, -0.0131, 0.113, 0.8339, -0.0131, -0.4831, 0.8339, 0.9112, -0.4831, 0.8339, 0.9112, 0.113, 0.8339, -0.0131, 0.113, -1, 1.3012, 0.113, 0.8339, 1.3012, -0.4831, -1, 1.3012, -0.4831, -1, 1.3012, 0.113, 0.8339, 1.3012, 0.113, 0.8339, 1.3012, -0.4831, 0.8339, 1.3012, -0.4831, 0.8339, 0.9112, 0.113, 0.8339, 0.9112, -0.4831, 0.8339, 1.3012, -0.4831, 0.8339, 1.3012, 0.113, 0.8339, 0.9112, 0.113, 0.8339, -0.0131, 1.1661, -1, -0.0131, 0.113, 0.8339, -0.0131, 0.113, 0.8339, -0.0131, 1.1661, -1, -0.0131, 1.1661, -1, -0.0131, 0.113, 0.8339, -0.0131, -0.4831, -1, -0.0131, -1.5075, 0.8339, -0.0131, -1.5075, 0.8339, -0.0131, -0.4831, -1, -0.0131, -0.4831, -1, -0.0131, -1.5075, 0.8339, -0.0131, 0.113, -1, -0.0131, -0.4831, 0.8339, -0.0131, -0.4831, 0.8339, -0.0131, 0.113, -1, -0.0131, 0.113, -1, -0.0131, -0.4831 )
 
+[sub_resource type="BoxShape" id=96]
+extents = Vector3( 5.49613, 3.30397, 7.78559 )
+
 [sub_resource type="GDScript" id=95]
-script/source = "extends Enemy
-
-onready var animTree = get_node(\"animTree\")
-var playback
-
-onready var break_audi = get_node(\"audi-break\")
-var break2_sound = preload(\"res://assets/audio/guns/result/mrHandy_break-2.wav\")
-
-
-func lookAtPlayer():
-	if Health > 0:
-		var player_pos = G.player.global_transform.origin
-		player_pos.y = global_transform.origin.y
-		look_at(player_pos, Vector3.UP)
-
-
-func TakeDamage(damage: int, shapeID = 0):
-	if Health > 1:
-		break_audi.play()
-		Health = 1
-	else:
-		break_audi.stream = break2_sound
-		break_audi.play()
-		Health = 0
-		var fire = get_node(\"Armature/Skeleton/BoneAttachment/fire\")
-		if fire:
-			fire.queue_free()
-		playback.travel(\"Die\")
-		set_collision_layer(0)
-		set_collision_mask(0)
-		var pos_y = 0.5
-		while pos_y > 0:
-			pos_y -= 0.1
-			translation.y -= 0.1
-			yield(get_tree(),\"idle_frame\")
-
-
-func _ready():
-	playback = animTree.get(\"parameters/playback\")
-	playback.start(\"Idle\")
-
-func _process(delta):
-	lookAtPlayer()
-"
-
-[sub_resource type="GDScript" id=96]
 script/source = "extends Node
 
 var eng_textures = [
@@ -1008,8 +966,6 @@ var eng_textures = [
 	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/bandage-eng.png\"),
 	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/headrope-eng.png\"),
 	preload(\"res://assets/textures/props/furniture/teach-notes/equipment/socks-eng.png\"),
-	
-	preload(\"res://assets/textures/flutty-table-eng.png\")
 ]
 
 func _ready():
@@ -1023,8 +979,6 @@ func _ready():
 		$\"../props/buildings/equipment/maneken-bangade/note/text\".texture = eng_textures[5]
 		$\"../props/buildings/equipment/maneken-headrope/note/text\".texture = eng_textures[6]
 		$\"../props/buildings/equipment/maneken-socks/note/text\".texture = eng_textures[7]
-		
-		$\"../props/buildings/laboratory/note2/text\".texture = eng_textures[8]
 "
 
 [node name="Main" type="Spatial"]
@@ -1269,6 +1223,7 @@ sound = {
 transform = Transform( -1.54775e-07, 0, 0.96, 0, 0.95, 0, -0.95, 0, -1.56404e-07, 11.1866, -3.42404, -3.28437 )
 Health = 50
 phraseText = [ "Приветствую вас на обучающем полигоне!", "Я здесь, чтобы дать вам инструкции для вашей предстоящей миссии", "Этой ночью вас отправят на вражескую базу,", "в которой расположен офицер зебр, обладающий очень важными для нас знаниями", "Знания очень секретны, чтобы передавать их по каким-либо каналам связи", "поэтому вскоре он собирается покинуть пограничную базу и направиться на родину", "Вы должны устранить этого офицера", "Он ни за что не должен покинуть пределы базы", "Мы вели за ним продолжительное наблюдение и уверены, что он сейчас находится там", "и что эти знания не были переданы кому-то ещё", "Ваша миссия очень важна для хода войны", "Если вам необходимо закрепить боевые знания,", "обратитесь к соответсвующим инструкторам в их секторах", "Если для выполнения миссии вам необходимо снаряжение", "возьмите его в соседнем здании и возвращайтесь ко мне за дальнейшими инструкциями" ]
+textTimers = [ 2.0, 3.29, 2.71, 4.5, 4.7, 2.9, 2.3, 1.95, 4.0, 3.42, 3.2, 2.45, 2.9, 1.68, 3.29 ]
 
 [node name="passArea" type="Area" parent="props/buildings/main"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49919, -0.104093, -4.11143 )
@@ -2681,26 +2636,20 @@ shaded = true
 double_sided = false
 texture = ExtResource( 85 )
 
-[node name="note2" type="Spatial" parent="props/buildings/laboratory"]
-transform = Transform( -0.551369, 0, 0.834261, 0, 1, 0, -0.834261, 0, -0.551369, -2.08466, 0.330153, -6.35024 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="leg" type="MeshInstance" parent="props/buildings/laboratory/note2"]
-transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0.0177841 )
-mesh = SubResource( 54 )
-material/0 = null
-
-[node name="text" type="Sprite3D" parent="props/buildings/laboratory/note2"]
-transform = Transform( -0.8, 0, -3.11531e-07, 0, 0.8, 0, 3.11531e-07, 0, -0.8, 0, 1.399, 0.02 )
-transparent = false
-shaded = true
-texture = ExtResource( 121 )
-
 [node name="MrHandy-Fluttershy" parent="props/buildings/laboratory" instance=ExtResource( 30 )]
-transform = Transform( -0.794531, 0, 0.607223, 0, 1, 0, -0.607223, 0, -0.794531, 1.4163, 0.410695, -5.56865 )
-script = SubResource( 95 )
+transform = Transform( -0.715078, 0, 0.546501, 0, 0.9, 0, -0.546501, 0, -0.715078, 1.4163, 0.410695, -5.56865 )
+phrase = ExtResource( 9 )
+phraseText = [ "Привет. Хочешь дополнительных очков, просто за то, что ты такая хорошая?" ]
+phraseTextEng = [ "Hi there. Want some extra score points, just because you are so nice?" ]
+textTimers = [ 4.0 ]
+
+[node name="passArea" type="Area" parent="props/buildings/laboratory"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31935, 3.62216, -1.4272 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape" type="CollisionShape" parent="props/buildings/laboratory/passArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60539, 0, 0.388378 )
+shape = SubResource( 96 )
 
 [node name="boxes" type="Spatial" parent="props"]
 
@@ -3013,7 +2962,7 @@ visible = false
 path = "res://scenes/Training.tscn"
 
 [node name="notes_translate" type="Node" parent="."]
-script = SubResource( 96 )
+script = SubResource( 95 )
 [connection signal="body_entered" from="props/buildings/main/passArea" to="props/buildings/main/passArea" method="_on_passArea_body_entered"]
 [connection signal="body_exited" from="props/buildings/main/passArea" to="props/buildings/main/passArea" method="_on_passArea_body_exited"]
 [connection signal="body_entered" from="props/buildings/equipment/climbing/climbIn" to="props/buildings/equipment/climbing" method="_on_climbIn_body_entered"]
@@ -3048,3 +2997,5 @@ script = SubResource( 96 )
 [connection signal="body_exited" from="props/buildings/magic/startArea-Teleport" to="props/buildings/magic/passArea" method="_on_startAreaTeleport_body_exited"]
 [connection signal="body_entered" from="props/buildings/magic/startArea-Shield" to="props/buildings/magic/passArea" method="_on_startAreaShield_body_entered"]
 [connection signal="body_exited" from="props/buildings/magic/startArea-Shield" to="props/buildings/magic/passArea" method="_on_startAreaShield_body_exited"]
+[connection signal="body_entered" from="props/buildings/laboratory/passArea" to="props/buildings/laboratory/passArea" method="_on_passArea_body_entered"]
+[connection signal="body_exited" from="props/buildings/laboratory/passArea" to="props/buildings/laboratory/passArea" method="_on_passArea_body_exited"]

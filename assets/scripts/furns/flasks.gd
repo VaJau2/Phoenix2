@@ -21,7 +21,7 @@ onready var flasks = [
 onready var prisonDoor = get_node("../../../land/buildings/stealth/bars-door")
 var key = preload("res://objects/items/key.tscn")
 
-onready var playerCorpsePos = get_node("/root/Main/props/land/player_corpses")
+#onready var playerCorpsePos = get_node("/root/Main/props/land/player_corpses")
 
 func dropKey():
 	var item = key.instance()
@@ -70,9 +70,10 @@ func checkNewFlask():
 		if enemy_manager.enemies_count > 2:
 			var randX = (randf() - 0.5) * 4
 			var randZ = (randf() - 0.5) * 4
-			var cPos = playerCorpsePos.global_transform.origin
+			#var cPos = playerCorpsePos.global_transform.origin
+			var cPos = G.player.global_transform.origin
 			new_coprse.global_transform.origin = Vector3(cPos.x + randX, cPos.y + 0.1, + cPos.z + randZ)
-			enemy_manager.CheckDead()
+			#enemy_manager.CheckDead()
 		else:
 			new_coprse.global_transform.origin = G.player.global_transform.origin
 		

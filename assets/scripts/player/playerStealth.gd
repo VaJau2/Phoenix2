@@ -73,7 +73,7 @@ func addAttackEnemy(enemy):
 		else:
 			label.text = "[Опасность]"
 		label.modulate = Color.red
-		stage = 1
+		stage = 2
 
 
 func removeAttackEnemy(enemy):

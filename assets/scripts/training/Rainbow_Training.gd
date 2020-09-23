@@ -92,7 +92,12 @@ func _ready():
 		"succeed": preload("res://assets/audio/phrases/instructions/flight/flight-succeed.ogg"),
 		"succeed_text": ["Отлично, ты почти такой же потрясный летун, как пони, с которой скопирован мой голос!"],
 		"succeed_text_eng": ["Great, you are as awesome flyer as pony, which my voice was copied from!"],
-		"succeed_timers": [4.8]
+		"succeed_timers": [4.8],
+		
+		"die": preload("res://assets/audio/phrases/instructions/flight/flight-revolt.ogg"),
+		"die_text": ["Эй, прекрати!"],
+		"die_text_eng": ["Hey, stop it!"],
+		"die_timers": [1.6],
 	}
 
 
@@ -104,7 +109,7 @@ func startTraining():
 			messages.ShowMessage("Reset:" + str(got_scores) + " scores", 1.5)
 		else:
 			messages.ShowMessage(str(got_scores) + " очков сброшено", 1.5)
-		G.scores -= got_scores
+		G.decreaseScores(got_scores)
 		got_scores = 0
 		eqipManager.removeReservedEqip()
 	

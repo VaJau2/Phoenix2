@@ -38,6 +38,7 @@ func MakeEveryoneCalm(teleport = false):
 					trader.global_transform.origin = trader.patrolArray[trader.patrolI].global_transform.origin
 				trader.anim.play(trader.IdleAnim)
 				trader._stop()
+				trader.cameToPlace = true
 
 
 func MakeEveryoneIdle(teleport = false):
@@ -81,6 +82,8 @@ func addDead(new_dead):
 		farDead.queue_free()
 
 
+#перемещаем трупы в яму
+#на данный момент выключено
 func CheckDead():
 	var slaves = get_node("../slaves").get_children()
 	for _slave in slaves:

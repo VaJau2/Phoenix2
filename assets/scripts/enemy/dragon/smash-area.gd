@@ -12,7 +12,8 @@ func _on_smasharea_body_entered(body):
 			G.player.body.playback.travel("Fly")
 			G.player.set_collision_layer(0)
 			G.player.set_collision_mask(0)
-			G.player.stats.TakeDamage(35, Vector2(0,0))
+			G.player.stats.TakeDamage(20, Vector2(0,0), true)
+			#true здесь - игнорирование запрета получения урона от mayMove = false
 			G.player.global_transform.origin = dragon.mouthPos.global_transform.origin
 			
 			dragon.player_in_mouth_timer = 3
