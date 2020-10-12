@@ -2,9 +2,13 @@ extends Node
 
 #скрипт грузит сохранение перед появлением дракона, после убийства командира
 
+onready var messages = get_node("/root/Main/canvas/messages")
 onready var resultMenu = get_node("../canvas/ResultMenu")
 var stats = {}
 
+func _ready():
+	messages.current_task = [" - Найти и устранить офицера зебр",
+							" - Find and eliminate the zebra officer"]
 
 func saveGame():
 	stats["scores"] = resultMenu.score_reasons
@@ -25,35 +29,25 @@ func saveGame():
 				"state": enemy.state
 			}
 	
+	G.save_level("base_middle", stats)
 	
-	var saved_stats = resultMenu.load_stats()
-	if saved_stats == null:
-		var new_stats = {
-			"middle_save": stats
-		}
-	else:
-		saved_stats["middle_save"] = stats
-	resultMenu.save_stats(saved_stats)
-	
-	var label = get_node("/root/Main/canvas/savedLabel")
-	if G.english:
-		label.text = "Game saved"
-	label.visible = true
-	yield(get_tree().create_timer(1),"timeout")
-	label.visible = false
+	var saved_text = "Game saved" if G.english else "Игра сохранена"
+	messages.ShowMessage(saved_text, 1.5)
+	messages.current_task = [" - Уничтожить дракона \n - Выжить",
+							" - Kill the dragon \n - Survive"]
 
 
 func loadGame():
-	var saved_stats = resultMenu.load_stats()
+	var saved_stats = G.load_stats()
 	if saved_stats != null:
-		if "middle_save" in saved_stats && saved_stats.middle_save != null:
-			var stats = saved_stats.middle_save
+		if "base_middle" in saved_stats.levels && saved_stats.levels.base_middle != null:
+			var stats = saved_stats.base_middle
 			
 			var player = get_node("../Player")
 			var new_pos = get_node("../player_step2-pos").global_transform.origin
 			player.global_transform.origin = new_pos
 			player.stats.Health = stats.player.Health
-			G.race = int(saved_stats.Race)
+			G.race = int(saved_stats.race)
 			player.weapons.weaponStats = stats.player.WeaponStats
 			var tempWeapon = stats.player.tempWeapon
 			if tempWeapon != 0:
@@ -80,18 +74,24 @@ func loadGame():
 			
 			get_node("../props/buildings/CP/2floor/door7").my_key = ""
 			get_node("../props/buildings/CP/1floor/door").my_key = ""
+			
+			messages.current_task = [" - Уничтожить дракона \n - Выжить",
+									" - Kill the dragon \n - Survive"]
 		
-		if "Training" in saved_stats:
-			var saved_equipment = saved_stats.Training
+		if "Training" in saved_stats.levels:
+			var saved_equipment = saved_stats.levels.Training
 			var player = get_node("../Player")
 			
-			G.scores = saved_stats.Scores
-			G.race = int(saved_stats.Race)
+			G.scores = saved_equipment.saved_scores
+			G.race = int(saved_stats.race)
 			
 			if G.player:
 				G.player.loadRace()
 			
 			for equip in saved_equipment:
+				if equip == "saved_scores":
+					continue
+				
 				if (equip == "have_coat" && saved_equipment[equip]) || G.saved_coat:
 					G.saved_coat = false
 					player.have_coat = true

@@ -3,7 +3,7 @@ extends Area
 var enemies_inside = []
 
 func _on_shotgunArea_body_entered(body):
-	if body is Enemy:
+	if body is Character:
 		enemies_inside.append(body)
 	elif "broken" in body:
 		enemies_inside.append(body)

@@ -29,7 +29,7 @@ var back_objects = []
 
 func handleVictim(victim, damage):
 	if victim != null:
-		if victim is Enemy:
+		if victim is Character:
 			audi.stream = hit
 			victim.TakeDamage(damage)
 		else:
@@ -120,7 +120,7 @@ func _process(delta):
 
 
 func _on_frontarea_body_entered(body):
-	if body is StaticBody || body is Enemy:
+	if body is StaticBody || body is Character:
 		front_objects.append(body)
 
 
@@ -130,7 +130,7 @@ func _on_frontarea_body_exited(body):
 
 
 func _on_backarea_body_entered(body):
-	if body is StaticBody || body is Enemy:
+	if body is StaticBody || body is Character:
 		back_objects.append(body)
 
 

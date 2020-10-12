@@ -184,7 +184,7 @@ func _checkVisible(victims):
 		var wr = weakref(victim)
 		if wr.get_ref():
 			var vict_pos = victim.global_transform.origin
-			if victim is Enemy:
+			if victim is Character:
 				vict_pos.y += 1
 			var dir = vict_pos - rayShotgun.global_transform.origin
 			rayShotgun.global_transform.basis = Basis(Vector3.ZERO)
@@ -192,7 +192,7 @@ func _checkVisible(victims):
 			yield(get_tree(),"idle_frame")
 			if rayShotgun.get_collider() == victim:
 				handleVictim(victim)
-				if victim is Enemy:
+				if victim is Character:
 					_spawnBlood(victim, G.player.impulse * -4, dir)
 			else: #костыль, тк некоторые окна он почему-то не видит
 				if !rayShotgun.is_colliding() && ("broken" in victim):
@@ -219,7 +219,7 @@ func handleVictim(victim, shapeID = 0):
 		else:
 			_name = "blood"
 		
-		if victim is Enemy:
+		if victim is Character:
 			stats.MakeDamage(victim, weaponStats[temp_weapon + "_damage"], shapeID)
 	elif victim.physics_material_override:
 		var material = victim.physics_material_override as NamedPhysicsMaterial

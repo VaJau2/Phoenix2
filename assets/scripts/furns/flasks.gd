@@ -45,9 +45,6 @@ func checkNewFlask():
 			G.player.stats.Health = 100
 		G.player.stats.redScreen.modulate.a = 0
 		G.player.flying = false
-
-		for temp_slave in get_node("/root/Main/slaves").get_children():
-			temp_slave.moveToPrison()
 		
 		if "prison_key" in G.player.stats.my_keys:
 			G.player.stats.my_keys.erase("prison_key")
@@ -81,7 +78,6 @@ func checkNewFlask():
 		
 		if G.player.collar.is_visible():
 			G.player.collar.set_visible(false)
-			G.player.collar.my_owner = null
 			G.player.collar.set_process(false)
 			G.player.collar.slider.set_visible(false)
 		

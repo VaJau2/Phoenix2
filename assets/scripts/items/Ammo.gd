@@ -4,6 +4,7 @@ export var ammoType: String
 export var ammoCount = 50
 
 onready var mesh = get_node("mesh")
+onready var messages = get_node("/root/Main/canvas/messages")
 var sound = preload("res://assets/audio/item/ItemAmmo.wav")
 
 func _process(delta):
@@ -14,6 +15,10 @@ func _on_Item_body_entered(body):
 		var ammo = G.player.weapons.weaponStats[ammoType+"_ammo"]
 		var ammo_max = G.player.weapons.weaponStats[ammoType+"_ammoMax"]
 		if ammo >= ammo_max:
+			if G.english:
+				messages.ShowMessage("Not enough space", 1.5)
+			else:
+				messages.ShowMessage("Нет места", 1.5)
 			return
 		
 		ammo += ammoCount

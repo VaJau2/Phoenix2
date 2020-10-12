@@ -101,10 +101,10 @@ func TakeDamage(damage, angle, ignoreBlock = false):
 		if parent.equipment.have_armor:
 			damage = damage * 0.7
 		
-		if dash_block:
+		if dash_block && !ignoreBlock:
 			damage = damage * 0.6
 		
-		if shieldMesh.visible:
+		if shieldMesh.visible && !ignoreBlock:
 			var decrease = round((((mana+5) / manaMax) * damage))
 			damage = damage - decrease
 			mana = mana - decrease

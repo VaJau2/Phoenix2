@@ -1,5 +1,13 @@
 extends "TrainingBase.gd"
 
+var lang = 0
+var fly_hints = {
+	"fly": [" (в воздухе) - взлететь", " (in the air) - to fly"],
+	"up": [" (в полете) - подняться выше", " (during flight) - move up"],
+	"down": [" (в полете) - опуститься ниже", " (during flight) - move down"],
+}
+
+
 const PASS_SCORES = 8
 onready var messages = get_node("/root/Main/canvas/messages")
 onready var eqipManager = get_node("../../equipment")
@@ -18,6 +26,8 @@ var ringFly2 = preload("res://assets/audio/flying/flyingRing2.wav")
 var failSound = preload("res://assets/audio/futniture/stealth_fail.wav")
 
 func _ready():
+	if G.english:
+		lang = 1
 	startRing = get_node(startRingPath)
 	mrHandy = get_node("../MrHandy-Rainbow")
 	phrases = {
@@ -104,6 +114,7 @@ func _ready():
 func startTraining():
 	is_training = true
 	startRing.start()
+	increase = 1
 	if got_scores > 0:
 		if G.english:
 			messages.ShowMessage("Reset:" + str(got_scores) + " scores", 1.5)
@@ -112,8 +123,14 @@ func startTraining():
 		G.decreaseScores(got_scores)
 		got_scores = 0
 		eqipManager.removeReservedEqip()
+	else:
+		var key = _getKey("jump")
+		messages.ShowMessage(key + fly_hints["fly"][lang])
+		yield(get_tree().create_timer(4),"timeout")
+		messages.ShowMessage(key + fly_hints["up"][lang])
+		key = _getKey("ui_shift")
+		messages.ShowMessage(key + fly_hints["down"][lang])
 	
-	increase = 1
 
 
 func finishTraining():

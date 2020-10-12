@@ -1,5 +1,21 @@
 extends Area
 
+var lang = 0
+var hints = {
+	"move": [" - движение", " - to move"],
+	"jump": [" - прыжок", "- to jump"],
+	"crouch": [" - присесть/красться", " - to sit/crouch"],
+	"view": [" - сменить вид"," - to change view"],
+	"hit": [" - ближний удар (передними или задними ногами в зависимости от направления)", 
+			" - close hit (with front or hind legs depending on the direction)"],
+	"hit2": ["земные пони могут выбивать двери ударами ног",
+			"earthponies are able to smash doors with their legs"],
+	"dash": [" - сделать подкат", "-  to dash"],
+	"dash2": ["во время подката часть урона пропускается",
+			"during dashing part of damage is skipping"],
+	"task": [" - узнать текущие задачи", " - to see current tasks"]
+}
+
 var phrases = {
 	"die": preload("res://assets/audio/phrases/instructions/instructions-revolt.ogg"),
 	"die_text": ["Если ты думаешь, что роботы не чувствуют боль, ты ошибаешься. Мне больно и обидно за тебя."],
@@ -38,6 +54,7 @@ var phrase_2 = {
 	],
 }
 
+onready var messages = get_node("/root/Main/canvas/messages")
 onready var twilight = get_node("../MrHandy-Twilight")
 var start_wait = false
 var timer_wait = 5
@@ -51,12 +68,59 @@ func _changePhrase(phrase_name):
 	twilight.textI = 0
 
 
+static func _getKey(action):
+	var actions = InputMap.get_action_list(action)
+	return OS.get_scancode_string(actions[0].get_scancode())
+
+
+func _showHints():
+	if G.english:
+		lang = 1
+	yield(get_tree().create_timer(5),"timeout")
+	messages.current_task[0] = "- Подготовиться к миссии"
+	messages.current_task[1] = "- Get ready to mission"
+	
+	var keys = _getKey("ui_up") + _getKey("ui_left") + _getKey("ui_down") + _getKey("ui_right")
+	messages.ShowMessage(keys + hints["move"][lang])
+	
+	if G.race != 1: #единороги прыгать не умеют
+		yield(get_tree().create_timer(5),"timeout")
+		keys =  _getKey("jump")
+		messages.ShowMessage(keys + hints["jump"][lang])
+	
+	yield(get_tree().create_timer(5),"timeout")
+	keys =  _getKey("crouch")
+	messages.ShowMessage(keys + hints["crouch"][lang])
+	
+	yield(get_tree().create_timer(5),"timeout")
+	keys =  _getKey("changeView")
+	messages.ShowMessage(keys + hints["view"][lang])
+	
+	yield(get_tree().create_timer(5),"timeout")
+	keys =  _getKey("legsHit")
+	messages.ShowMessage(keys + hints["hit"][lang])
+	
+	if G.race == 0:
+		messages.ShowMessage(hints["hit2"][lang])
+		
+		yield(get_tree().create_timer(5),"timeout")
+		keys =  _getKey("dash")
+		messages.ShowMessage(keys + hints["dash"][lang])
+		messages.ShowMessage(hints["dash2"][lang])
+	
+	yield(get_tree().create_timer(5),"timeout")
+	keys =  _getKey("task")
+	messages.ShowMessage(keys + hints["task"][lang])
+
+
 func _ready():
 	yield(get_tree().create_timer(1),"timeout")
+	_showHints()
 	twilight.talkToPlayer()
 	yield(twilight,"finished")
 	start_wait = true
 	_changePhrase("instructions")
+	
 
 
 func _process(delta):

@@ -58,7 +58,7 @@ func setTerminalOn(terminal):
 		new_button.text = "- " + message_name
 		new_button.connect("pressed", self, "readMessage", [message_name])
 	
-	G.setPause(self, true)
+	G.setPause(self, true, false)
 	visible = true
 	
 	menus[0].menu.visible = true
@@ -107,6 +107,7 @@ func readMessage(message_num):
 	menu_num = 1
 	
 	var formatted_message = messages[message_num].replace("_", "\n")
+	formatted_message = WordFilter.parse_text(formatted_message)
 	menus[1]["message-header"].text = message_num
 	menus[1]["textLabel"].text = formatted_message
 	

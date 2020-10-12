@@ -1,5 +1,6 @@
 extends Spatial
 
+onready var messages = get_node("/root/Main/canvas/messages")
 onready var after = get_node("/root/Main/Player/after")
 
 var increase_speed = 0.5
@@ -24,6 +25,7 @@ onready var black_screen = get_node("/root/Main/canvas/black")
 onready var records_menu = get_node("/root/Main/canvas/ResultMenu")
 
 func startWar():
+	messages.current_task = ["- Выжить?..", "- Survive?.."]
 	$alarm.play()
 	for bomb in bombs:
 		bomb.explode()

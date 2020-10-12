@@ -13,13 +13,13 @@ var textTimers = [4.2, 1.8]
 var textI = 0
 
 onready var subs = get_node("/root/Main/canvas/subtitles")
+onready var messages = get_node("/root/Main/canvas/messages")
 
 export var startingFlask = false
 
 onready var blackScreen = get_node("/root/Main/canvas/black")
 onready var resultMenu = get_node("/root/Main/canvas/ResultMenu")
 
-onready var player = get_node("/root/Main/Player")
 onready var camera = get_node("Camera")
 onready var head = get_node("Armature/Skeleton/Body002")
 onready var hair = get_node("Armature/Skeleton/BoneAttachment/Cube")
@@ -34,11 +34,11 @@ var temp_delta = 0.1
 
 
 func _ready():
-	var saved_stats = resultMenu.load_stats()
+	var saved_stats = G.load_stats()
 	if saved_stats != null:
-		if "Training" in saved_stats:
-			if G.race != int(saved_stats.Race):
-				G.race = int(saved_stats.Race)
+		if "Training" in saved_stats.levels:
+			if G.race != int(saved_stats.race):
+				G.race = int(saved_stats.race)
 				G.player.loadRace()
 	
 	anim.current_animation = "idle"
@@ -50,8 +50,9 @@ func _ready():
 		get_node("Armature/Skeleton/WingR").visible = false
 	
 	if startingFlask:
-		player.camera = player.get_node("Rotation_Helper/Camera")
-		player.rotation_helper_third = player.get_node("Rotation_Helper_Third")
+		messages.current_task = ["- Сбежать отсюда подальше", " - Run away from here"]
+		G.player.camera = G.player.get_node("Rotation_Helper/Camera")
+		G.player.rotation_helper_third = G.player.get_node("Rotation_Helper_Third")
 		wakeUp()
 	else:
 		set_process(false)
@@ -59,37 +60,37 @@ func _ready():
 
 func wakeUp():
 	set_process(true)
-	player.teleport_inside = true
-	player.rotation_helper_third._setThirdView(false)
-	player.rotation_helper_third.mayChange = false
-	player.visible = false
-	player.mayMove = false
+	G.player.teleport_inside = true
+	G.player.rotation_helper_third._setThirdView(false)
+	G.player.rotation_helper_third.mayChange = false
+	G.player.visible = false
+	G.player.mayMove = false
 	camera.current = true
 	head.set_layer_mask(2)
 	hair.set_layer_mask(2)
 	if G.race == 1:
 		get_node("Armature/Skeleton/BoneAttachment 2/horn").set_layer_mask(2)
 	
-	player.global_transform.origin = body.global_transform.origin
-	player.global_transform.basis = body.global_transform.basis
-	player.rotation = Vector3(0, player.rotation.y + 65, 0)
-	player.scale = Vector3(1.05,1.05,1.05)
+	G.player.global_transform.origin = body.global_transform.origin
+	G.player.global_transform.basis = body.global_transform.basis
+	G.player.rotation = Vector3(0, G.player.rotation.y + 65, 0)
+	G.player.scale = Vector3(1.05,1.05,1.05)
 	
-	player.OnStairs = false
-	if player.crouching:
-		player._sit(false)
+	G.player.OnStairs = false
+	if G.player.crouching:
+		G.player._sit(false)
 	
 	blackScreen.visible = true
 	blackScreen.color.a = 1.0
-	player.camera.eyes_closed = true
+	G.player.camera.eyes_closed = true
 	
 	if startingFlask:
 		yield(get_tree().create_timer(0.2),"timeout")
 	else:
 		yield(get_tree().create_timer(3),"timeout")
 	
-	player.audi_hitted.stream = underwater
-	player.audi_hitted.play()
+	G.player.audi_hitted.stream = underwater
+	G.player.audi_hitted.play()
 	
 	while(blackScreen.color.a > 0):
 		if !G.paused:
@@ -97,7 +98,7 @@ func wakeUp():
 		yield(get_tree(),"idle_frame")
 	
 	blackScreen.visible = false
-	player.camera.eyes_closed = false
+	G.player.camera.eyes_closed = false
 	yield(get_tree().create_timer(1),"timeout")
 	
 	$wires.visible = false
@@ -113,15 +114,15 @@ func wakeUp():
 		yield(get_tree(),"idle_frame")
 	
 	body.queue_free()
-	player.visible = true
-	player.mayMove = true
-	player.rotation_helper_third.mayChange = true
-	player.camera.current = true
+	G.player.visible = true
+	G.player.mayMove = true
+	G.player.rotation_helper_third.mayChange = true
+	G.player.camera.current = true
 	
 	yield(get_tree().create_timer(0.2),"timeout")
 	
-	player.audi_hitted.stream = flaskOpen
-	player.audi_hitted.play()
+	G.player.audi_hitted.stream = flaskOpen
+	G.player.audi_hitted.play()
 	
 	while(glass.translation.y > -2):
 		if !G.paused:

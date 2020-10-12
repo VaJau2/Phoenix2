@@ -5,33 +5,26 @@ script/source = "extends Area
 
 export var damage = 5
 var playerHere = false
-var creaturesHere = []
 var timer = 0.5
 
 
 func _on_PropDamage_body_entered(body):
 	if body.name == \"Player\":
 		playerHere = true
-	elif body is Enemy && !(\"collared\" in body):
-		creaturesHere.append(body)
 	set_process(true)
 
 
 func _on_PropDamage_body_exited(body):
 	if body.name == \"Player\":
 		playerHere = false
-	elif body in creaturesHere:
-		creaturesHere.erase(body)
 
 func _process(delta):
-	if creaturesHere.size() > 0 || playerHere:
+	if playerHere:
 		if timer > 0:
 			timer -= delta
 		else:
 			timer = 1
-			
-			for creature in creaturesHere:
-				creature.TakeDamage(damage)
+		
 			if playerHere:
 				G.player.stats.TakeDamage(damage, Vector3.ZERO)
 	else:
@@ -39,6 +32,7 @@ func _process(delta):
 "
 
 [sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.416579, 1, 0.460156 )
 
 [node name="PropDamage" type="Area"]
 script = SubResource( 1 )

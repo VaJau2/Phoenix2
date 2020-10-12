@@ -10,14 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody",
-"class": "Enemy",
+"class": "Character",
 "language": "GDScript",
-"path": "res://assets/scripts/enemy/enemy_base.gd"
+"path": "res://assets/scripts/npc/character.gd"
 }, {
 "base": "PhysicsMaterial",
 "class": "NamedPhysicsMaterial",
 "language": "GDScript",
 "path": "res://assets/scripts/system/NamedPhysicsMaterial.gd"
+}, {
+"base": "Node",
+"class": "Scenario",
+"language": "GDScript",
+"path": "res://assets/scripts/interface/dialogue/scenario.gd"
+}, {
+"base": "Node",
+"class": "WordFilter",
+"language": "GDScript",
+"path": "res://assets/scripts/system/wordFilter.gd"
 }, {
 "base": "StaticBody",
 "class": "furn_base",
@@ -25,8 +35,10 @@ _global_script_classes=[ {
 "path": "res://assets/scripts/furns/furn-base.gd"
 } ]
 _global_script_class_icons={
-"Enemy": "",
+"Character": "",
 "NamedPhysicsMaterial": "",
+"Scenario": "",
+"WordFilter": "",
 "furn_base": ""
 }
 
@@ -142,6 +154,11 @@ dash={
 legsHit={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+task={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
  ]
 }
 

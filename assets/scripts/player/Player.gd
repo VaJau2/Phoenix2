@@ -13,6 +13,7 @@ export var check_clone_flask = false
 
 var mayMove = true
 var hitting = false
+var blockJump = false
 
 var thirdView = false
 var lying = false #ограничение для вращения тела
@@ -165,16 +166,6 @@ func _physics_process(delta):
 		vel = Vector3(0,0,0)
 
 
-func _setValueZero(value, step, new_value=0, delta = 0.1):
-	if(value > step + new_value):
-		value -= step * delta * 20
-	elif(value < -step + new_value):
-		value += step * delta * 20
-	else:
-		value = new_value
-	return value
-
-
 func _clumpBody(speedX): #ограничение вращения камерой, когда игрок лежит
 	if lying:
 		if speedX > 0 && body.body_rot < body.MAX_ANGLE:
@@ -318,7 +309,7 @@ func process_input(delta):
 	if(goSide):
 		sideAngle = clamp(sideAngle,-2, 2)
 	else:
-		sideAngle = _setValueZero(sideAngle, 0.2, 0, delta)
+		sideAngle = G.setValueZero(sideAngle, 0.2, 0, delta)
 	
 	camera.rotation_degrees.z = sideAngle
 	
@@ -345,7 +336,7 @@ func process_input(delta):
 			$shield/audi.stop()
 		
 		if G.race != 1:
-			if Input.is_action_just_pressed("jump"):
+			if Input.is_action_just_pressed("jump") && !blockJump:
 				if crouching:
 					body_collider_size = 1
 					MAX_SPEED = 17
@@ -358,7 +349,7 @@ func process_input(delta):
 					vel.y = JUMP_SPEED
 		else:
 			if !jump_hint.visible && stats.mana > stats.TELEPORT_COST && Input.is_action_pressed("jump"):
-				if stats.Health > 0:
+				if stats.Health > 0 && !blockJump:
 					tempRay = weapons.enableHeadRay(stats.TELEPORT_DISTANCE)
 					if !teleport_pressed:
 						teleport_pressed = true
@@ -419,8 +410,10 @@ func process_input(delta):
 					speedY = rotation_helper.rotation_degrees.x / 5
 				else:
 					speedY = 0
-	body_collider.scale.y = _setValueZero(body_collider.scale.y, 0.1, body_collider_size, delta)
-	body_collider_2.scale.y = _setValueZero(body_collider_2.scale.y, 0.1, body_collider_size, delta)
+	
+	if body_collider.scale.y != body_collider_size:
+		body_collider.scale.y = G.setValueZero(body_collider.scale.y, 0.1, body_collider_size, delta)
+		body_collider_2.scale.y = G.setValueZero(body_collider_2.scale.y, 0.1, body_collider_size, delta)
 	# ----------------------------------
 
 

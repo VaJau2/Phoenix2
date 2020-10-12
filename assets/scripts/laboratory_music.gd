@@ -22,30 +22,30 @@ var cooldown_timer = 0
 func _muteMusic(mute, delta):
 	if mute:
 		if non_fight_music_on:
-			audi1.volume_db = G.player._setValueZero(audi1.volume_db, SPEED, -20, delta)
+			audi1.volume_db = G.setValueZero(audi1.volume_db, SPEED, -20, delta)
 			if audi1.volume_db == -20:
 				music_muted = true
 				cooldown_timer = DEALTH_COOLDOWN
 		elif fight_music_on:
-			audi2.volume_db = G.player._setValueZero(audi2.volume_db, SPEED, -20, delta)
+			audi2.volume_db = G.setValueZero(audi2.volume_db, SPEED, -20, delta)
 			if audi2.volume_db == -20:
 				music_muted = true
 				cooldown_timer = DEALTH_COOLDOWN
 		
 		else:
-			audi1.volume_db = G.player._setValueZero(audi1.volume_db, SPEED, -20, delta)
-			audi2.volume_db = G.player._setValueZero(audi2.volume_db, SPEED, -20, delta)
+			audi1.volume_db = G.setValueZero(audi1.volume_db, SPEED, -20, delta)
+			audi2.volume_db = G.setValueZero(audi2.volume_db, SPEED, -20, delta)
 			
 			if audi1.volume_db == -20 && audi2.volume_db == -20:
 				music_muted = true
 				cooldown_timer = DEALTH_COOLDOWN
 	else:
 		if non_fight_music_on:
-			audi1.volume_db = G.player._setValueZero(audi1.volume_db, SPEED, 0, delta)
+			audi1.volume_db = G.setValueZero(audi1.volume_db, SPEED, 0, delta)
 			if audi1.volume_db == 0:
 				music_muted = false
 		elif fight_music_on:
-			audi2.volume_db = G.player._setValueZero(audi2.volume_db, SPEED, 0, delta)
+			audi2.volume_db = G.setValueZero(audi2.volume_db, SPEED, 0, delta)
 			if audi2.volume_db == 0:
 				music_muted = false
 		else:
@@ -64,6 +64,11 @@ func _ready():
 
 
 func _process(delta):
+	audi1.stream_paused = G.music_paused
+	audi2.stream_paused = G.music_paused
+	if G.music_paused:
+		return
+	
 	if G.player.stats.black_screen.visible:
 		if !music_muted:
 			_muteMusic(true, delta)

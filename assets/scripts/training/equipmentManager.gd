@@ -58,7 +58,8 @@ func saveEquip():
 		"have_socks": false,
 		"have_bandage": false,
 		"have_headrope": false,
-		"have_coat": false
+		"have_coat": false,
+		"saved_scores": 0
 	}
 	
 	for eqip in reservedEqup:
@@ -72,19 +73,10 @@ func saveEquip():
 		G.saved_coat = true
 		equipment_have_stats.have_coat = true
 	
+	#сохраняем очки, которые игрок заработал и не потратил на снаряжение
+	equipment_have_stats.saved_scores = G.scores
+	
 	G.load_equipment = true
-	var stats = {
-		"Training": equipment_have_stats,
-		"Scores": G.scores - final_cost,
-		"Race": G.race
-	}
+	
+	G.save_level("Training", equipment_have_stats, 0, true)
 	G.scores = 0
-	save_stats(stats)
-
-
-func save_stats(stats):
-	var save_file = File.new()
-	save_file.open_compressed("res://stats.sav", File.WRITE, File.COMPRESSION_FASTLZ)
-	var data = to_json(stats)
-	save_file.store_line(data)
-	save_file.close()

@@ -59,19 +59,6 @@ func showMenu():
 	_update_down_label()
 
 
-func _load_stats():
-	var load_file = File.new()
-	if load_file.file_exists("res://stats.sav"):
-		load_file.open_compressed("res://stats.sav", File.READ, File.COMPRESSION_FASTLZ)
-		var data = load_file.get_line()
-		var stats = parse_json(data)
-		load_file.close()
-		return stats
-	
-	load_file.close()
-	return null
-
-
 func _showLevelRecord(level_info, stats, level2 = false):
 	level_info.visible = true
 	
@@ -109,21 +96,21 @@ func _showLevelRecord(level_info, stats, level2 = false):
 
 
 func _loadRecords():
-	var stats = _load_stats()
-	if stats && "Zebra_base" in stats:
-		var stats1 = stats.Zebra_base
+	var stats = G.load_stats()
+	if stats && "Zebra_base" in stats.levels:
+		var stats1 = stats.levels["Zebra_base"]
 		if stats1:
 			$Level2_label.visible = true
 			_showLevelRecord($Level1, stats1)
 			if "Laboratory" in stats.keys():
-				var stats2 = stats.Laboratory
+				var stats2 = stats.levels.Laboratory
 				_showLevelRecord($Level2, stats2, true)
 
 
 func CheckZebraLevel():
-	var stats = _load_stats()
-	if stats && "Zebra_base" in stats:
-		var stats1 = stats["Zebra_base"]
+	var stats = G.load_stats()
+	if stats && "Zebra_base" in stats.levels:
+		var stats1 = stats.levels["Zebra_base"]
 		if stats1:
 			return true
 	return false

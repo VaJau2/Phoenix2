@@ -1,5 +1,13 @@
 extends "TrainingBase.gd"
 
+var lang = 0
+var hints = {
+	"shield": [" - магический щит", " - magic shield"],
+	"shield2": ["щит блокирует урон в зависимости от количества маны",
+				"shield blocks damage depending on mana count"],
+	"teleport": [" - телепортироваться", " - to teleport"]
+}
+
 onready var messages = get_node("/root/Main/canvas/messages")
 onready var eqipManager = get_node("../../equipment")
 const PASS_SCORES = 24
@@ -25,6 +33,8 @@ var shooting = false
 
 
 func _ready():
+	if G.english:
+		lang = 1
 	mrHandy = get_node("../MrHandy-Rarity")
 	
 	phrases = {
@@ -159,6 +169,10 @@ func startTrainingTeleport():
 		G.decreaseScores(got_scores_teleport)
 		got_scores_teleport = 0
 		eqipManager.removeReservedEqip()
+	else:
+		var keys = _getKey("jump")
+		messages.ShowMessage(keys + hints["teleport"][lang])
+	
 	increase = 1
 
 
@@ -191,6 +205,10 @@ func startTrainingShield():
 		got_scores_shield = 0
 		eqipManager.removeReservedEqip()
 		G.player.stats.Health = 100
+	else:
+		var keys = _getKey("ui_shift")
+		messages.ShowMessage(keys + hints["shield"][lang])
+		messages.ShowMessage(hints["shield2"][lang])
 	
 	mrHandy.stopTalking()
 	playerHere = false

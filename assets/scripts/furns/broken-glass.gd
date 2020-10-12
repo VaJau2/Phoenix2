@@ -63,12 +63,12 @@ func brake(damage):
 
 
 func _on_enemyArea_body_entered(body):
-	if body is Enemy && "player_last_pos" in body:
+	if body is Character && "player_last_pos" in body:
 		hearing_zebras.append(body)
 
 
 func _on_enemyArea_body_exited(body):
-	if body is Enemy && body in hearing_zebras:
+	if body is Character && body in hearing_zebras:
 		hearing_zebras.erase(body)
 
 

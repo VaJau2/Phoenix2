@@ -14,12 +14,14 @@ var race = 0
 #1 - единорог
 #2 - пегас
 var paused = false
+var music_paused = true
 var game_over = false
 
 var settings
 var distance = 600 #настройки, которые сохраняются в settingsMenu
 var sensivity = 0.1 #и потом берутся в player
 var reflections = 200
+var filter = false
 
 var load_game = false
 
@@ -32,6 +34,66 @@ func decreaseScores(num):
 	scores -= num
 	if scores < 0:
 		scores = 0
+
+
+func setValueZero(value, step, new_value=0, delta = 0.1):
+	if(value > step + new_value):
+		value -= step * delta * 20
+	elif(value < -step + new_value):
+		value += step * delta * 20
+	else:
+		value = new_value
+	return value
+
+
+func save_stats(stats):
+	var save_file = File.new()
+	save_file.open_compressed("res://stats.sav", File.WRITE, File.COMPRESSION_FASTLZ)
+	var data = to_json(stats)
+	save_file.store_line(data)
+	save_file.close()
+
+
+func load_stats():
+	var load_file = File.new()
+	if load_file.file_exists("res://stats.sav"):
+		load_file.open_compressed("res://stats.sav", File.READ, File.COMPRESSION_FASTLZ)
+		var data = load_file.get_line()
+		var stats = parse_json(data)
+		load_file.close()
+		return stats
+	
+	load_file.close()
+	return null
+
+#clear - очистка файла сохранений в начале новой игры
+#new_level_passed - текущий пройденный уровень, который сохраняется даже при очистке
+# 0 - обучение
+# 1 - база зебр
+# 2 - лаборатория
+func save_level(level_name, savind_stats, new_level_passed = 0, clear = false):
+	var saved_stats = load_stats() #грузим предыдущие рекорды
+	if saved_stats == null || clear: #если сохранений не было, создаем новые
+		var levelsPassed = 0 if (saved_stats == null) else saved_stats.levelsPassed
+		
+		var new_stats = {
+			"race": G.race,
+			"levelsPassed": levelsPassed,
+			"levels": {
+				level_name: savind_stats,
+			},
+		}
+		save_stats(new_stats)
+	
+	elif !(level_name in saved_stats.levels) || ("score" in saved_stats.levels[level_name] 
+		&& !(saved_stats.levels[level_name].score < scores)): #если предыдущий рекорд побит, перезаписываем
+		
+		if new_level_passed > saved_stats.levelsPassed: #записываем, что прошли этот уровень
+			saved_stats.levelsPassed = new_level_passed
+		
+		saved_stats.levels[level_name] = savind_stats #добавляем туда статистику
+		save_stats(saved_stats)
+
 
 func goto_scene(path, loading = false): # game requests to switch to this scene
 	load_game = loading
@@ -91,7 +153,11 @@ func set_new_scene(scene_resource):
 		load_game = false
 
 
-func setPause(object, pause: bool):
+func setPause(object, pause: bool, pause_music = true):
+	if pause_music:
+		pause_music = pause
+	music_paused = pause_music
+	
 	if pause:
 		if !paused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

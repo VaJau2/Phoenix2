@@ -23,14 +23,14 @@ func _change_interface_language():
 	$exit.text = _getMenuText(4)
 
 
-func _changeCameraRay(): #правим рейкаст от камеры, если игрок растягивал окошко
-	var camera = get_node("/root/Main/Player/Rotation_Helper/Camera")
-	if camera:
-		camera._pos = OS.get_window_size() / 2
-
-
 func _set_pause(pause):
-	G.setPause(self, pause)
+	var dialogue = get_node("/root/Main/canvas/dialogue")
+	if !dialogue || !dialogue.visible:
+		G.setPause(self, pause)
+	else:
+		G.music_paused = !visible
+		pause = !visible
+	
 	visible = pause
 	updating_down_label = pause
 	if pause:
@@ -39,7 +39,6 @@ func _set_pause(pause):
 	else:
 		$SettingsMenu.visible = false
 		$SettingsMenu.saveSettingsToFile()
-		_changeCameraRay()
 
 
 func _input(event):

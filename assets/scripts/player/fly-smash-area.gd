@@ -8,7 +8,7 @@ func _on_smasharea_body_entered(body):
 		var audi = get_node("../audi_hitted")
 		audi.stream = hitSound
 		audi.play()
-		if body is Enemy:
+		if body is Character:
 			body.TakeDamage(parent.flySpeed * 3)
 		else:
 			parent.stats.TakeDamage(parent.flySpeed - 20, Vector3.ZERO)

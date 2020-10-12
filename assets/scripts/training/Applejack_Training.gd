@@ -9,9 +9,17 @@ var targets
 
 var got_scores = 0
 
+var lang = 0
+var hints = {
+	"shoot": ["ЛКМ - выстрелить", "LMB - to shoot"],
+	"close": ["ПКМ - приблизить", "RMB - to close view"]
+}
+
 
 
 func _ready():
+	if G.english: 
+		lang = 1
 	targets = get_node("../targets").get_children()
 	mrHandy = get_node("../MrHandy-Applejack")
 	phrases = {
@@ -125,6 +133,11 @@ func startTraining():
 		pinkie_training.pistol.getWeapon()
 	
 	is_training = true
+	
+	targets_count = 5
+	for target in targets:
+		target.dropScores(self)
+	
 	if got_scores > 0:
 		if G.english:
 			messages.ShowMessage("reset " + str(got_scores) + " scores ", 1.5)
@@ -133,10 +146,12 @@ func startTraining():
 		G.decreaseScores(got_scores)
 		got_scores = 0
 		eqipManager.removeReservedEqip()
-	
-	targets_count = 5
-	for target in targets:
-		target.dropScores(self)
+	else:
+		yield(get_tree().create_timer(1),"timeout")
+		messages.ShowMessage(hints["shoot"][lang])
+		yield(get_tree().create_timer(4),"timeout")
+		messages.ShowMessage(hints["close"][lang])
+		yield(get_tree().create_timer(5),"timeout")
 
 
 func hitTarget(scores: int):

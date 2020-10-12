@@ -4,13 +4,13 @@ onready var faintListener = get_node("/root/Main/faintListener")
 onready var playerListener = get_node("/root/Main/Player/Rotation_Helper/Camera/Listener")
 
 onready var prisonDoor = get_node("../../bars-door")
+onready var checkPlayerInside = get_node("../checkPlayerInside")
 onready var checkLoc = get_node("../../../../../changeLocs")
 
 onready var enemy_manager = get_node("/root/Main/enemies")
+onready var trader3 = get_node("/root/Main/enemies/slave_trader3")
 onready var faintScreen = get_node("/root/Main/canvas/faintScreen")
-var faints_count = 0
 
-onready var collarOwnerPos = get_node("../../trader_idle")
 onready var noteThreat = get_node("../../threatNote")
 
 var weapons = {
@@ -43,8 +43,8 @@ func Faint():
 	#делаем врагов спокойными
 	if G.race == 1 && G.player.stats.shieldMesh.visible && G.player.stats.Health > 30:
 		return
-	
-	faints_count += 1
+	checkPlayerInside.active = true
+
 	G.player.mayMove = false
 	G.player.body.playback.travel("Die1")
 	G.player.collar.set_process(false)
@@ -56,28 +56,10 @@ func Faint():
 		black_screen.color.a += 0.1
 		yield(get_tree(),"idle_frame")
 	
+	#перемещаем игровые звуки в другое место
+	#так проще, чем глушить все звуки и возвращать громкость обратно
 	faintListener.current = true
 	
-	var slaves = get_node("/root/Main/slaves").get_children()
-	if slaves.size() > 0:
-		for temp_slave in slaves:
-			if temp_slave && temp_slave.Health > 0:
-				temp_slave.moveToPrison()
-		
-		if faints_count > 2:
-			if !noteThreat.is_visible():
-				noteThreat.set_visible(true)
-			else:
-				var slaveI = 0
-				if slaves.size() > 1:
-					slaveI = randi() % 1
-				if slaves[slaveI]:
-					slaves[slaveI].queue_free()
-					slaves.remove(slaveI)
-					#slaves[slaveI].TakeDamage(50, 0, true)
-					#slaves[slaveI].audi.stop()
-	
-	#enemy_manager.CheckDead()
 	enemy_manager.MakeEveryoneCalm(true)
 	if prisonDoor.open:
 		prisonDoor.clickFurn("key_all")
@@ -127,16 +109,13 @@ func Faint():
 	if !G.player.collar.is_visible():
 		var trader = enemy_manager._getCloserTrader()
 		if trader:
-			trader.set_state("idle")
-			trader.my_start_pos = collarOwnerPos.global_transform.origin
-			trader.global_transform.origin = trader.my_start_pos
-			trader.patrolArray.clear()
 			trader.collar_key = true
 			G.player.collar.set_visible(true)
 			G.player.collar.my_owner = trader
 	
 	G.player.collar.set_process(true)
-	G.player.Faint(faints_count > 1)
+	var ropingTraderIsAlive = weakref(trader3).get_ref() && trader3.Health > 0
+	G.player.Faint(ropingTraderIsAlive)
 	playerListener.current = true
 	
 	while(black_screen.color.a > 0):

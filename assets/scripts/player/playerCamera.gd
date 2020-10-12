@@ -5,13 +5,12 @@ extends Camera
 
 const RAY_LENGTH = 6
 onready var messages = get_node("/root/Main/canvas/messages")
-
+onready var dialogueMenu = get_node("/root/Main/canvas/dialogue")
 
 onready var parent = get_node("../../")
 
 var temp_length
 var ray_layer = 3
-var _pos
 
 onready var labelBack = get_node("../../../canvas/openBack")
 var label
@@ -41,7 +40,6 @@ func showHint(text, text_eng=""):
 
 
 func _ready():
-	_pos = OS.get_window_size() / 2
 	label = labelBack.get_node("label")
 	temp_length = RAY_LENGTH
 
@@ -82,52 +80,49 @@ func _physics_process(delta):
 		if onetime:
 			labelBack.visible = false
 			onetime = false
-	
+		
+		var _pos = OS.get_window_size() / 2
 		var space_state = get_world().direct_space_state
 		var from = project_ray_origin(_pos)
 		var to = from + project_ray_normal(_pos) * temp_length
 		var result = space_state.intersect_ray(from, to, [G.player], ray_layer)
 		if result:
-			temp_object = result
-			if temp_object.collider is furn_base:
-				if temp_object.collider.open:
+			temp_object = result.collider
+			if temp_object is furn_base:
+				if temp_object.open:
 					showHint(" - закрыть", " - close")
 				else:
 					showHint(" - открыть", " - open")
 			
-			elif "have_coat" in temp_object.collider:
-				if parent.have_coat && !temp_object.collider.have_coat:
+			elif "have_coat" in temp_object:
+				if parent.have_coat && !temp_object.have_coat:
 					showHint(" - снять пальто", " - take coat off")
-				if !parent.have_coat && temp_object.collider.have_coat:
+				if !parent.have_coat && temp_object.have_coat:
 					showHint(" - надеть пальто", " - put coat on")
 			
-			elif "maneken" in temp_object.collider.name:
-				if temp_object.collider.haveEquip:
-					showHint(" - надеть " + temp_object.collider.equpName + "\n (" + str(temp_object.collider.cost) + " очков)", \
-					" - put " + temp_object.collider.equpNameEng + " on\n (" + str(temp_object.collider.cost) + " scores)")
+			elif "maneken" in temp_object.name:
+				if temp_object.haveEquip:
+					showHint(" - надеть " + temp_object.equpName + "\n (" + str(temp_object.cost) + " очков)", \
+					" - put " + temp_object.equpNameEng + " on\n (" + str(temp_object.cost) + " scores)")
 				else:
-					showHint(" - снять " + temp_object.collider.equpName, " - take " + temp_object.collider.equpNameEng + " off")
+					showHint(" - снять " + temp_object.equpName, " - take " + temp_object.equpNameEng + " off")
 			
-			elif "weapon_num" in temp_object.collider:
-				if temp_object.collider.visible:
+			elif "weapon_num" in temp_object:
+				if temp_object.visible:
 					showHint(" - взять оружие", " - take gun")
-				elif G.player.weapons.temp_weapon_num == temp_object.collider.weapon_num:
+				elif G.player.weapons.temp_weapon_num == temp_object.weapon_num:
 					showHint(" - положить оружие", " - put gun")
 			
-			elif "terminal" in temp_object.collider.name:
+			elif "terminal" in temp_object.name:
 				showHint(" - активировать терминал", " - activate terminal")
 			
-			elif temp_object.collider.name == "map_to_next_loc":
+			elif temp_object.name == "map_to_next_loc":
 				showHint(" - закончить обучение\nи отправиться на базу", \
 				" - finish training\nand go to base")
 			
-			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
-				if temp_object.collider.collared:
-					showHint(" - попробовать снять\nбраслет", " - try to take\ncollar off")
-				elif temp_object.collider.waiting:
-					showHint(" - позвать за собой", " - say to follow")
-				else:
-					showHint(" - сказать ждать здесь", " - say to wait here")
+			elif temp_object is Character:
+				if temp_object.isTalking:
+					showHint(" - поговорить", " - talk")
 		else:
 			temp_object = null
 
@@ -135,58 +130,43 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventKey && Input.is_action_just_pressed("use"):
 		if labelBack.visible && closed_timer <= 0 && temp_object:
-			
-			if temp_object.collider is furn_base:
+			if temp_object is furn_base:
 				var keys = G.player.stats.my_keys
-				closed_timer = temp_object.collider.clickFurn(keys)
+				closed_timer = temp_object.clickFurn(keys)
 				if G.english:
 					closed_text = "Closed"
 				else:
 					closed_text = "Закрыто"
 			
-			elif "have_coat" in temp_object.collider:
-				temp_object.collider.changeCoat()
+			elif "have_coat" in temp_object:
+				temp_object.changeCoat()
 			
-			elif "maneken" in temp_object.collider.name:
-				closed_timer = temp_object.collider.changeEquip()
+			elif "maneken" in temp_object.name:
+				closed_timer = temp_object.changeEquip()
 				if G.english:
 					closed_text = "Not enough scores"
 				else:
 					closed_text = "Не хватает очков"
 			
-			elif "weapon_num" in temp_object.collider:
-				if temp_object.collider.visible || G.player.weapons.temp_weapon_num == temp_object.collider.weapon_num:
-					temp_object.collider.getWeapon()
+			elif "weapon_num" in temp_object:
+				if temp_object.visible || G.player.weapons.temp_weapon_num == temp_object.weapon_num:
+					temp_object.getWeapon()
 			
-			elif "terminal" in temp_object.collider.name:
+			elif "terminal" in temp_object.name:
 				var menu = get_node("/root/Main/canvas/Terminal-Screen")
-				if "owner_name" in temp_object.collider:
-					menu.setTerminalOn(temp_object.collider)
+				if "owner_name" in temp_object:
+					menu.setTerminalOn(temp_object)
 				else:
 					menu.setTerminalOn()
 			
-			elif temp_object.collider.name == "map_to_next_loc":
+			elif temp_object.name == "map_to_next_loc":
 				var equipManager = get_node("/root/Main/props/buildings/equipment")
 				equipManager.saveEquip()
 				G.goto_scene("res://scenes/Main.tscn")
 			
-			elif temp_object.collider is Enemy && "collared" in temp_object.collider:
-				if temp_object.collider.collared: #--освобождаем
-					if "prison_key" in G.player.stats.my_keys:
-						temp_object.collider.changeCollar(false)
-					else:
-						closed_timer = 1
-						if G.english:
-							closed_text = "There is no suitable key"
-						else:
-							closed_text = "Нет подходящего ключа"
-						
-				elif temp_object.collider.waiting: #--следуй за мной
-					temp_object.collider.waiting = false
-					
-				else:  #--жди здесь
-					temp_object.collider.waiting = true
-					temp_object.collider.set_state("idle")
+			elif temp_object is Character:
+				if temp_object.isTalking && temp_object.dialogue_path.length() > 0:
+					dialogueMenu.startDialogue(temp_object.dialogue_path, temp_object)
 				
 	if !parent.thirdView && event is InputEventMouseButton && event.button_index == 2:
 		if event.is_pressed():

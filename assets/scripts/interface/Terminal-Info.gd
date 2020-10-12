@@ -47,7 +47,7 @@ func loadEquipment():
 
 
 func setTerminalOn():
-	G.setPause(self, true)
+	G.setPause(self, true, false)
 	visible = true
 	
 	if G.english:

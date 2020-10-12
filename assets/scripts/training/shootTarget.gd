@@ -1,4 +1,4 @@
-extends Enemy
+extends Character
 
 var my_script
 var temp_scores = 12

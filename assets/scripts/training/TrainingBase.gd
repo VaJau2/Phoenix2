@@ -14,6 +14,10 @@ var nodDownTimer = 0.3
 var notLeftTimer = 0.3
 var notRightTimer = 0.3
 
+static func _getKey(action):
+	var actions = InputMap.get_action_list(action)
+	return OS.get_scancode_string(actions[0].get_scancode())
+
 
 func _resetTimers():
 	nodUpTimer = 0.3

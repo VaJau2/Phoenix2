@@ -42,27 +42,6 @@ func _change_interface_language():
 	$exit.text = "               [To main menu]"
 
 
-func save_stats(stats):
-	var save_file = File.new()
-	save_file.open_compressed("res://stats.sav", File.WRITE, File.COMPRESSION_FASTLZ)
-	var data = to_json(stats)
-	save_file.store_line(data)
-	save_file.close()
-
-
-func load_stats():
-	var load_file = File.new()
-	if load_file.file_exists("res://stats.sav"):
-		load_file.open_compressed("res://stats.sav", File.READ, File.COMPRESSION_FASTLZ)
-		var data = load_file.get_line()
-		var stats = parse_json(data)
-		load_file.close()
-		return stats
-	
-	load_file.close()
-	return null
-
-
 func _setRaceName():
 	match G.race:
 		0:
@@ -122,15 +101,7 @@ func showRecords():
 		"silent_assasin": score_reasons.Silent_Assasin
 	}
 	
-	var saved_stats = load_stats() #грузим предыдущие рекорды
-	if saved_stats == null: #если сохранений не было, создаем новые
-		var new_stats = {
-			level_name: savind_stats
-		}
-		save_stats(new_stats)
-	elif !(level_name in saved_stats) || !(saved_stats[level_name].score < scores): #если предыдущий рекорд побит, перезаписываем
-		saved_stats[level_name] = savind_stats
-		save_stats(saved_stats)
+	G.save_level(level_name, savind_stats, 1)
 
 
 func _count_time(delta):

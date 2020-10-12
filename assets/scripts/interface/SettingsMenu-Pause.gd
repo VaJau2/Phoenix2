@@ -39,6 +39,8 @@ var reflections_temp = 3
 var fullscreen_button
 var fullscreen_temp = false
 
+var filter_button
+
 var sound_slider
 var music_slider
 
@@ -48,7 +50,7 @@ var temp_edit = null
 var temp_action = ""
 var controlActions = ["ui_up", "ui_down", "ui_left", "ui_right", \
 					  "jump", "ui_shift", "use", "crouch", "dash",\
-					  "getGun", "legsHit", "changeView"]
+					  "getGun", "legsHit", "changeView", "task"]
 
 var menu_text = {
 	0: ["[Настройки]","[Settings]"],
@@ -75,7 +77,8 @@ var menu_text = {
 	21:["Подкат:", "Dodge"],
 	22:["Достать оружие: ", "Get gun"],
 	23:["Ближний удар:", "Close hit"],
-	24:["Сменить камеру:", "Change view"]
+	24:["Сменить камеру:", "Change view"],
+	25:["Фильтр 18+", "18+ filter"]
 }
 
 
@@ -109,6 +112,7 @@ func _change_interface_language():
 	$shadows_label.text = _getMenuText(4)
 	$reflections_label.text = _getMenuText(5)
 	$fullscreen.text = _getMenuText(6)
+	$filter.text = _getMenuText(25)
 	$sound_label.text = _getMenuText(7)
 	$music_label.text = _getMenuText(8)
 	$controls.text = _getMenuText(9)
@@ -180,18 +184,23 @@ func _on_reflections_button_pressed():
 	G.reflections = reflections_settings[reflections_temp]
 
 
-func _update_fullscreen_button():
-	if fullscreen_temp:
-		fullscreen_button.text = _getMenuText(11)
+func _update_onoff_button(button, condition):
+	if condition:
+		button.text = _getMenuText(11)
 	else:
-		fullscreen_button.text = _getMenuText(10)
+		button.text = _getMenuText(10)
 
 
 func _on_fullscreen_button_pressed():
 	$audi.play()
 	fullscreen_temp = !fullscreen_temp
-	_update_fullscreen_button()
+	_update_onoff_button(fullscreen_button, fullscreen_temp)
 	OS.window_fullscreen = fullscreen_temp
+
+
+func _on_filter_button_pressed():
+	G.filter = !G.filter
+	_update_onoff_button(filter_button, G.filter)
 
 
 func _update_audio_bus(num, value):
@@ -280,6 +289,8 @@ func _getControlEdit(action):
 			return $Controls/legsBack/edit
 		"changeView":
 			return $Controls/cameraBack/edit
+		"task":
+			return $Controls/taskBack/edit
 	print("what is " + action + "?")
 
 
@@ -337,6 +348,7 @@ func loadInterface():
 	shadows_button = get_node("shadows_button")
 	reflections_button = get_node("reflections_button")
 	fullscreen_button = get_node("fullscreen_button")
+	filter_button = get_node("filter_button")
 	sound_slider = get_node("sound_slider")
 	music_slider = get_node("music_slider")
 
@@ -379,7 +391,8 @@ func loadSettingsFromGame():
 	sound_slider.value = AudioServer.get_bus_volume_db(0)
 	music_slider.value = AudioServer.get_bus_volume_db(1)
 	fullscreen_temp = OS.is_window_fullscreen()
-	_update_fullscreen_button()
+	_update_onoff_button(fullscreen_button, fullscreen_temp)
+	_update_onoff_button(filter_button, G.filter)
 
 
 func loadSettingsFromFile():
@@ -429,8 +442,11 @@ func loadSettingsFromFile():
 		music_slider.value = music_volume
 		
 		fullscreen_temp = config.get_value("screen", "fullscreen")
-		_update_fullscreen_button()
+		_update_onoff_button(fullscreen_button, fullscreen_temp)
 		OS.set_window_fullscreen(fullscreen_temp)
+		
+		G.filter = config.get_value("screen", "filter")
+		_update_onoff_button(filter_button, G.filter)
 		
 		var screen_size = Vector2()
 		screen_size.x = config.get_value("screen", "width")
@@ -456,6 +472,7 @@ func saveSettingsToFile():
 	config.set_value("audio", "sound_volume", sound_slider.value)
 	config.set_value("audio", "music_volume", music_slider.value)
 	config.set_value("screen", "fullscreen", fullscreen_temp)
+	config.set_value("screen", "filter", G.filter)
 	var screen_size = OS.get_window_size()
 	config.set_value("screen", "width", screen_size.x)
 	config.set_value("screen", "heigh", screen_size.y)

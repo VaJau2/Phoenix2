@@ -27,10 +27,10 @@ func _on_Area_body_entered(body):
 
 
 func _on_mirrortrigger_body_exited(body):
+	if !weakref(mirror).get_ref():
+		return
 	if body.name == "Player" && !mirror.camera_see:
 		#проверка на удаленный объект
-		if !weakref(mirror).get_ref():
-			return
 		mirror.mirrorOff()
 		mirrorOn = false
 		playerIn = false

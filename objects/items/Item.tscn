@@ -15,7 +15,7 @@ scale = 0.4
 material = ExtResource( 1 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 1.87258, 0.986809, 2.30837 )
+extents = Vector3( 2.8, 1.2, 2.8 )
 
 [node name="Item" type="Area"]
 

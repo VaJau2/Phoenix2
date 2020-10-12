@@ -32,6 +32,8 @@ func _updateRocket():
 
 
 func explode():
+	if exploding: 
+		return
 	yield(get_tree().create_timer(timer),"timeout")
 	exploding = true
 	rocket.visible = true

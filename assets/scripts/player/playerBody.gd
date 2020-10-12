@@ -74,7 +74,7 @@ func _updateHeadRotation(delta):
 			rot_x = (body_rot + 159.0) / 90.0
 		else:
 			rot_x = body_rot / 90.0
-	head_blend.x = G.player._setValueZero(head_blend.x, 0.12, rot_x, delta)
+	head_blend.x = G.setValueZero(head_blend.x, 0.12, rot_x, delta)
 	animTree.set("parameters/BlendSpace2D/blend_position", head_blend)
 
 
@@ -158,7 +158,7 @@ func _process(delta):
 					playback.travel("Fly-OnPlace")
 				else:
 					#проверка на расу нужна, тк единороги не прыгают вообще
-					if G.race != 1 && Input.is_action_just_pressed("jump"):
+					if G.race != 1 && Input.is_action_just_pressed("jump")&& !G.player.blockJump:
 						playback.travel("Jump")
 						jumping_cooldown = JUMP_COOLDOWN
 					elif jumping_cooldown <= 0:
@@ -188,7 +188,7 @@ func _process(delta):
 			rotation_degrees.y = 0
 		elif G.player.vel.length() > 0 && !G.player.roped:
 			var rot_y = rotation_degrees.y
-			rotation_degrees.y = G.player._setValueZero(rot_y, 16, body_rot, delta)
+			rotation_degrees.y = G.setValueZero(rot_y, 16, body_rot, delta)
 		else:
 			rotation_degrees.y = body_rot
 			if body_rot < -180:

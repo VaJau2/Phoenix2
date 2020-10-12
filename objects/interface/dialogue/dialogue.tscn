@@ -1,0 +1,246 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/scripts/interface/dialogue/DialogueMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/interface/dialogue_arrow.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/interface/dialogue_border.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/interface/dialogue_cloud.png" type="Texture" id=4]
+[ext_resource path="res://assets/dialogues/blur.tres" type="Material" id=5]
+[ext_resource path="res://assets/materials/fonts/terminal_theme.tres" type="Theme" id=7]
+[ext_resource path="res://assets/materials/fonts/dialogue_theme.tres" type="Theme" id=8]
+[ext_resource path="res://assets/scripts/interface/dialogue/talkerEffect.gd" type="Script" id=9]
+
+[node name="dialogue" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="blur" type="ColorRect" parent="."]
+material = ExtResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="ColorRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = 110.0
+margin_right = 184.0
+margin_bottom = 117.0
+color = Color( 0.223529, 0.752941, 0.145098, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="border-left" type="TextureRect" parent="menu"]
+anchor_right = 0.027
+anchor_bottom = 3.0
+margin_left = -40.0
+margin_right = -0.150001
+margin_bottom = -3.8147e-06
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="border-right" type="TextureRect" parent="menu"]
+anchor_left = 0.973
+anchor_right = 1.0
+anchor_bottom = 3.0
+margin_left = 0.149994
+margin_right = 40.0
+margin_bottom = -3.8147e-06
+texture = ExtResource( 3 )
+expand = true
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skip" type="Label" parent="menu"]
+visible = false
+margin_top = -20.0
+margin_right = 369.0
+margin_bottom = -5.0
+size_flags_vertical = 1
+theme = ExtResource( 7 )
+text = "[пробел, чтобы продолжить]"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="GridContainer" parent="menu"]
+anchor_right = 1.005
+margin_top = 20.0
+margin_right = 0.165039
+margin_bottom = 179.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="menu/text"]
+margin_right = 369.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme = ExtResource( 7 )
+text = "если ты это видишь, то все очень плохо"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="leftTalker" type="TextureRect" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = -124.5
+margin_right = 270.0
+margin_bottom = 125.5
+expand = true
+stretch_mode = 6
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rightTalker" type="TextureRect" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -254.0
+margin_top = -124.0
+margin_right = -4.0
+margin_bottom = 126.0
+expand = true
+stretch_mode = 6
+flip_h = true
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -338.0
+margin_top = -287.0
+margin_right = 366.0
+margin_bottom = 107.0
+expand = true
+stretch_mode = 6
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cloud" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -200.0
+margin_top = 50.0
+margin_right = 200.0
+margin_bottom = 200.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="arrows" type="Control" parent="cloud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="left" type="TextureRect" parent="cloud/arrows"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 4.12033
+margin_top = -65.3746
+margin_right = 58.1203
+margin_bottom = -0.374603
+rect_rotation = 40.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right" type="TextureRect" parent="cloud/arrows"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -46.7983
+margin_top = -31.7397
+margin_right = 7.20172
+margin_bottom = 33.2603
+rect_rotation = -40.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="up" type="TextureRect" parent="cloud/arrows"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -117.589
+margin_top = -123.295
+margin_right = -63.589
+margin_bottom = -58.2955
+rect_rotation = -156.2
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="cloud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.6486
+margin_top = 11.7838
+margin_right = -26.3514
+margin_bottom = -11.2162
+theme = ExtResource( 8 )
+text = "кажется, что-то сломалось"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -23,7 +23,7 @@ func dropItem(item_prefab, item_height, item_down = false):
 		while(item_height > 0 && wr.get_ref()):
 			item.global_transform.origin.x += side_x * 0.5
 			item.global_transform.origin.z += side_z * 0.5
-			item.global_transform.origin.y -= 0.4
+			item.global_transform.origin.y -= 0.6
 			item_height -= 0.4
 			yield(get_tree(),"idle_frame")
 
